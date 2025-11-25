@@ -19,10 +19,12 @@ flowchart TD
   Integrator --> DatabaseConnector[TravelioDatabaseConnector]
   Integrator --> BankConnector[TravelioBankConnector]
   Integrator --> APIConnector[TravelioAPIConnector]
-  APIConnector --> REST[TravelioREST (APIs REST)]
-  APIConnector --> SOAP[TravelioSOAP (Servicios SOAP)]
+  APIConnector --> REST[TravelioREST]
+  REST --> RESTapis[(APIs REST)]
+  APIConnector --> SOAP[TravelioSOAP]
+  SOAP --> SOAPservices[(Servicios SOAP)]
   DatabaseConnector --> DB[(Base de datos)]
-  DBAdmin[TravelioDBAdministrator (UI)] --> DatabaseConnector
+  DBAdmin["TravelioDBAdministrator (UI)"] --> DatabaseConnector
   BankConnector --> BankAPI[(API REST del banco)]
 ```
 
