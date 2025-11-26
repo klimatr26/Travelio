@@ -1,6 +1,6 @@
 # Travelio
 
-Conjunto de proyectos que construyen el bus de integración de Travelio. El código está en desarrollo y algunas capas estan incompletas.
+Conjunto de proyectos que construyen el bus de integración de Travelio. El código está en desarrollo y algunas capas están incompletas.
 
 ## Proyectos de la solución
 - **TravelioREST**: Conecta el bus de integración con cada API REST indicada por URL.
@@ -11,7 +11,7 @@ Conjunto de proyectos que construyen el bus de integración de Travelio. El cód
 - **TravelioIntegrator**: Orquesta las capas anteriores; se conecta con la base de datos, el banco y las API para automatizar cargas de datos hacia la base de datos.
 - **TravelioDBAdministrator**: Provee una interfaz ASP.NET Core para administrar la base de datos a través de TravelioDatabaseConnector. Esta capa podría eliminarse o cambiarse según la estrategia de front-end.
 
-## Diagrama de relacion
+## Diagrama de relación
 
 ```mermaid
 flowchart TD
