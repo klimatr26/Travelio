@@ -5,7 +5,9 @@
         static void Main(string[] args)
         {
             //TravelioTestConsoleApp.Aerolinea.ConnectionTest.TestBasicGetConnection().GetAwaiter().GetResult();
-            TravelioTestConsoleApp.Autos.ConnectionTest.TestBasicGetConnection().GetAwaiter().GetResult();
+            //TravelioTestConsoleApp.Autos.ConnectionTest.TestBasicGetConnection().GetAwaiter().GetResult();
+
+            TravelioTestConsoleApp.Banco.BancoTest.RunTransferTest().GetAwaiter().GetResult();
         }
     }
 }

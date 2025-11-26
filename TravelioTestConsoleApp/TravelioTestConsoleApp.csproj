@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TravelioAPIConnector\TravelioAPIConnector.csproj" />
+    <ProjectReference Include="..\TravelioBankConnector\TravelioBankConnector.csproj" />
   </ItemGroup>
 
 </Project>
