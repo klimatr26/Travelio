@@ -12,7 +12,6 @@ using TravelioSOAP.Autos.Disponibilidad;
 using TravelioSOAP.Autos.Facturacion;
 using TravelioSOAP.Autos.Prerreserva;
 using TravelioSOAP.Autos.Reserva;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static TravelioAPIConnector.Global;
 
 namespace TravelioAPIConnector.Autos;
@@ -86,7 +85,7 @@ public static class Connector
         }
         else
         {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            var soapClient = new WS_BuscarAutosSoapClient(GetBinding(uri), new EndpointAddress(uri));
             var response = await soapClient.buscarAutosAsync(categoria, transmision, capacidad, precioMin, precioMax, sort, ciudad, pais);
             var vehiculosResult = new Vehiculo[response.Body.buscarAutosResult.Length];
             for (int i = 0; i < response.Body.buscarAutosResult.Length; i++)
@@ -118,8 +117,9 @@ public static class Connector
         }
         else
         {
-            var soapClient = new IntegracionAutosSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            return await soapClient.validarDisponibilidadAutoAsync(int.Parse(idAuto), dateFrom, dateTo);
+            var soapClient = new WS_DisponibilidadAutosSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            var response = await soapClient.validarDisponibilidadAutoAsync(idAuto, dateFrom, dateTo);
+            return response.Body.validarDisponibilidadAutoResult.Disponible;
         }
     }
 
@@ -150,7 +150,7 @@ public static class Connector
         }
         else
         {
-            var soapClient = new WS_Integracion_ServicioSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            var soapClient = new WS_PreReservaSoapClient(GetBinding(uri), new EndpointAddress(uri));
             var dto = new PreReservaAutoRequestDto()
             {
                 IdVehiculo = idAuto,
@@ -160,7 +160,7 @@ public static class Connector
             };
 
             var response = await soapClient.CrearPreReservaAutoAsync(dto);
-            return (response.Body.CrearPreReservaAutoResult.IdHold, response.Body.CrearPreReservaAutoResult.FechaExpiracion);
+            return (response.IdHold, response.FechaExpiracion);
         }
     }
 
@@ -181,9 +181,9 @@ public static class Connector
                 Email = correo
             };
 
-            var response = await soapClient.CrearUsuarioExternoAsync(dto);
+            var response = await soapClient.ProcesarUsuarioExternoAsync(dto);
 
-            return response.Body.CrearUsuarioExternoResult.IdUsuario;
+            return response.Body.ProcesarUsuarioExternoResult.IdUsuario;
         }
     }
 
@@ -205,7 +205,7 @@ public static class Connector
         }
         else
         {
-            var soapClient = new WS_Integracion_ServiciosSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            var soapClient = new WS_ReservarAutosSoapClient(GetBinding(uri), new EndpointAddress(uri));
             var response = await soapClient.ReservarAutoAsync(idAuto, idHold, nombre, apellido, tipoIdentificacion, identificacion, correo, fechaInicio, fechaFin);
             return response.Body.ReservarAutoResult.IdReserva;
         }
@@ -226,16 +226,8 @@ public static class Connector
         {
             var soapClient = new WS_FacturaIntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
 
-            var dto = new DetalleFacturaDto
-            {
-                Descripcion = "Factura de reserva de auto",
-                Cantidad = 1,
-                PrecioUnitario = total,
-                Subtotal = subtotal
-            };
-
-            var response = await soapClient.EmitirFacturaAsync(reservaId, 0, total, "Factura de reserva de auto", [dto]);
-            return response.Body.EmitirFacturaResult.UriFactura;
+            var response = await soapClient.EmitirFacturaAsync(reservaId.ToString(), cliente.correo, cliente.nombre, cliente.tipoDocumento, cliente.documento, total);
+            return response.Body.EmitirFacturaResult.UrlFactura;
         }
     }
 

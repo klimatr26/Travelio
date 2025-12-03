@@ -38,7 +38,7 @@ internal static class ConnectionTest
             Console.WriteLine(hab);
         }
 
-        var habitacion = habitaciones[^11];
+        var habitacion = habitaciones[^13];
         Console.WriteLine($"Habitación seleccionada: {habitacion}");
 
         var fechaInicio = DateTime.Now.Date.AddMonths(1);

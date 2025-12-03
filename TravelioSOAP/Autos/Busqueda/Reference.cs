@@ -140,8 +140,8 @@ namespace TravelioSOAP.Autos.Busqueda
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://rentaautos.ec/integracion", ConfigurationName="TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap")]
-    public interface WS_IntegracionSoap
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://rentaautos.ec/integracion", ConfigurationName="TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap")]
+    public interface WS_BuscarAutosSoap
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://rentaautos.ec/integracion/buscarAutos", ReplyAction="*")]
@@ -257,13 +257,13 @@ namespace TravelioSOAP.Autos.Busqueda
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public interface WS_IntegracionSoapChannel : TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap, System.ServiceModel.IClientChannel
+    public interface WS_BuscarAutosSoapChannel : TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public partial class WS_IntegracionSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap>, TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap
+    public partial class WS_BuscarAutosSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap>, TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap
     {
         
         /// <summary>
@@ -273,34 +273,34 @@ namespace TravelioSOAP.Autos.Busqueda
         /// <param name="clientCredentials">Credenciales de cliente</param>
         static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
-        public WS_IntegracionSoapClient(EndpointConfiguration endpointConfiguration) : 
-                base(WS_IntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_IntegracionSoapClient.GetEndpointAddress(endpointConfiguration))
+        public WS_BuscarAutosSoapClient(EndpointConfiguration endpointConfiguration) : 
+                base(WS_BuscarAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_BuscarAutosSoapClient.GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_IntegracionSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
-                base(WS_IntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+        public WS_BuscarAutosSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+                base(WS_BuscarAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_IntegracionSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(WS_IntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public WS_BuscarAutosSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(WS_BuscarAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_IntegracionSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public WS_BuscarAutosSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Busqueda.buscarAutosResponse> TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap.buscarAutosAsync(TravelioSOAP.Autos.Busqueda.buscarAutosRequest request)
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Busqueda.buscarAutosResponse> TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap.buscarAutosAsync(TravelioSOAP.Autos.Busqueda.buscarAutosRequest request)
         {
             return base.Channel.buscarAutosAsync(request);
         }
@@ -317,7 +317,7 @@ namespace TravelioSOAP.Autos.Busqueda
             inValue.Body.sort = sort;
             inValue.Body.ciudad = ciudad;
             inValue.Body.pais = pais;
-            return ((TravelioSOAP.Autos.Busqueda.WS_IntegracionSoap)(this)).buscarAutosAsync(inValue);
+            return ((TravelioSOAP.Autos.Busqueda.WS_BuscarAutosSoap)(this)).buscarAutosAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -334,7 +334,7 @@ namespace TravelioSOAP.Autos.Busqueda
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_IntegracionSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_BuscarAutosSoap))
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
@@ -343,7 +343,7 @@ namespace TravelioSOAP.Autos.Busqueda
                 result.AllowCookies = true;
                 return result;
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_IntegracionSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_BuscarAutosSoap12))
             {
                 System.ServiceModel.Channels.CustomBinding result = new System.ServiceModel.Channels.CustomBinding();
                 System.ServiceModel.Channels.TextMessageEncodingBindingElement textBindingElement = new System.ServiceModel.Channels.TextMessageEncodingBindingElement();
@@ -361,13 +361,13 @@ namespace TravelioSOAP.Autos.Busqueda
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_IntegracionSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_BuscarAutosSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_BuscarAutos.asmx");
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_IntegracionSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_BuscarAutosSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_BuscarAutos.asmx");
             }
             throw new System.InvalidOperationException(string.Format("No se pudo encontrar un punto de conexión con el nombre \"{0}\".", endpointConfiguration));
         }
@@ -375,9 +375,9 @@ namespace TravelioSOAP.Autos.Busqueda
         public enum EndpointConfiguration
         {
             
-            WS_IntegracionSoap,
+            WS_BuscarAutosSoap,
             
-            WS_IntegracionSoap12,
+            WS_BuscarAutosSoap12,
         }
     }
 }

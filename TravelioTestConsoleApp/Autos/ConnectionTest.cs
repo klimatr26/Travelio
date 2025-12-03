@@ -30,12 +30,15 @@ internal static class ConnectionTest
 
         const string checkAvailabilityUri = Global.IsREST ? restCheckAvailabilityUri : soapCheckAvailabilityUri;
 
-        var firstCarId = autos[0].IdAuto;
+        var firstCarId = autos[^2].IdAuto;
 
         var isAvailable = await Connector.VerificarDisponibilidadAutoAsync(checkAvailabilityUri, firstCarId, DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1));
         Console.WriteLine($"El vehículo con Id '{firstCarId}' {(isAvailable ? "está" : "no está")} disponible.");
         var invalidIsAvailable = await Connector.VerificarDisponibilidadAutoAsync(checkAvailabilityUri, "32312", DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1));
         Console.WriteLine($"El vehículo con Id '32312' {(invalidIsAvailable ? "está" : "no está")} disponible.");
+
+        if (!isAvailable)
+            return;
 
         Console.WriteLine("Creando prerreserva:");
 
@@ -58,7 +61,7 @@ internal static class ConnectionTest
         Console.WriteLine($"Cliente externo creado con Id: {externalClientId}");
 
         const string restCreateReservationUri = @"http://cuencautosinte.runasp.net/api/v1/integracion/autos/book";
-        const string soapCreateReservationUri = @"http://cuencautosrenta.runasp.net/WS_Reserva.asmx?WSDL";
+        const string soapCreateReservationUri = @"http://cuencautosrenta.runasp.net/WS_ReservarAutos.asmx?WSDL";
 
         const string createReservationUri = Global.IsREST ? restCreateReservationUri : soapCreateReservationUri;
 
@@ -67,7 +70,7 @@ internal static class ConnectionTest
         Console.WriteLine($"Reserva creada con Id: {reservationId}");
 
         const string restGenerateInvoiceUri = @"http://cuencautosinte.runasp.net/api/v1/integracion/autos/invoices";
-        const string soapGenerateInvoiceUri = @"http://cuencautosrenta.runasp.net/WS_Factura.asmx?WSDL";
+        const string soapGenerateInvoiceUri = @"http://cuencautosrenta.runasp.net/WS_FacturaIntegracion.asmx?WSDL";
 
         const string generateInvoiceUri = Global.IsREST ? restGenerateInvoiceUri : soapGenerateInvoiceUri;
         var invoiceUri = await Connector.GenerarFacturaAsync(generateInvoiceUri, reservationId, 200, 12, 212, (nombre: "Juan Pérez", tipoDocumento: "Cédula", documento: "1234567890", correo: "jpere@correo.com"));
@@ -75,7 +78,7 @@ internal static class ConnectionTest
         Console.WriteLine($"Factura generada. URL de la factura: {invoiceUri}");
 
         const string restGetReservationDataUri = @"http://cuencautosinte.runasp.net/api/v1/integracion/autos/reservas";
-        const string soapGetReservationDataUri = @"http://cuencautosrenta.runasp.net/WS_DatosReserva.asmx?WSDL";
+        const string soapGetReservationDataUri = @"http://cuencautosrenta.runasp.net/WS_BuscarDatos.asmx?WSDL";
 
         const string getReservationDataUri = Global.IsREST ? restGetReservationDataUri : soapGetReservationDataUri;
 

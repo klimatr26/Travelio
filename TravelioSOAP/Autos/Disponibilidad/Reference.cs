@@ -7,27 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TravelioSOAP.Autos.Prerreserva
+namespace TravelioSOAP.Autos.Disponibilidad
 {
     using System.Runtime.Serialization;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PreReservaAutoRequestDto", Namespace="http://rentaautos.ec/gestion")]
-    public partial class PreReservaAutoRequestDto : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="ValidarDisponibilidadSoapResponse", Namespace="http://integracion.rentaautos.com/booking")]
+    public partial class ValidarDisponibilidadSoapResponse : object
     {
         
-        private string IdVehiculoField;
+        private int IdVehiculoField;
         
         private System.DateTime FechaInicioField;
         
         private System.DateTime FechaFinField;
         
-        private System.Nullable<int> DuracionHoldSegundosField;
+        private bool DisponibleField;
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string IdVehiculo
+        private string MensajeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int IdVehiculo
         {
             get
             {
@@ -66,80 +68,56 @@ namespace TravelioSOAP.Autos.Prerreserva
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
-        public System.Nullable<int> DuracionHoldSegundos
+        public bool Disponible
         {
             get
             {
-                return this.DuracionHoldSegundosField;
+                return this.DisponibleField;
             }
             set
             {
-                this.DuracionHoldSegundosField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PreReservaAutoResponseDto", Namespace="http://rentaautos.ec/gestion")]
-    public partial class PreReservaAutoResponseDto : object
-    {
-        
-        private string IdHoldField;
-        
-        private System.DateTime FechaExpiracionField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string IdHold
-        {
-            get
-            {
-                return this.IdHoldField;
-            }
-            set
-            {
-                this.IdHoldField = value;
+                this.DisponibleField = value;
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
-        public System.DateTime FechaExpiracion
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string Mensaje
         {
             get
             {
-                return this.FechaExpiracionField;
+                return this.MensajeField;
             }
             set
             {
-                this.FechaExpiracionField = value;
+                this.MensajeField = value;
             }
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://rentaautos.ec/gestion", ConfigurationName="TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap")]
-    public interface WS_Integracion_ServicioSoap
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://integracion.rentaautos.com/booking", ConfigurationName="TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap")]
+    public interface WS_DisponibilidadAutosSoap
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://rentaautos.ec/gestion/CrearPreReservaAuto", ReplyAction="*")]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoResponse> CrearPreReservaAutoAsync(TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://integracion.rentaautos.com/booking/validarDisponibilidadAuto", ReplyAction="*")]
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoResponse> validarDisponibilidadAutoAsync(TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class CrearPreReservaAutoRequest
+    public partial class validarDisponibilidadAutoRequest
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="CrearPreReservaAuto", Namespace="http://rentaautos.ec/gestion", Order=0)]
-        public TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="validarDisponibilidadAuto", Namespace="http://integracion.rentaautos.com/booking", Order=0)]
+        public TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequestBody Body;
         
-        public CrearPreReservaAutoRequest()
+        public validarDisponibilidadAutoRequest()
         {
         }
         
-        public CrearPreReservaAutoRequest(TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequestBody Body)
+        public validarDisponibilidadAutoRequest(TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequestBody Body)
         {
             this.Body = Body;
         }
@@ -148,20 +126,28 @@ namespace TravelioSOAP.Autos.Prerreserva
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.ec/gestion")]
-    public partial class CrearPreReservaAutoRequestBody
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://integracion.rentaautos.com/booking")]
+    public partial class validarDisponibilidadAutoRequestBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public TravelioSOAP.Autos.Prerreserva.PreReservaAutoRequestDto request;
+        public string idVehiculo;
         
-        public CrearPreReservaAutoRequestBody()
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.DateTime fechaInicio;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public System.DateTime fechaFin;
+        
+        public validarDisponibilidadAutoRequestBody()
         {
         }
         
-        public CrearPreReservaAutoRequestBody(TravelioSOAP.Autos.Prerreserva.PreReservaAutoRequestDto request)
+        public validarDisponibilidadAutoRequestBody(string idVehiculo, System.DateTime fechaInicio, System.DateTime fechaFin)
         {
-            this.request = request;
+            this.idVehiculo = idVehiculo;
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
         }
     }
     
@@ -169,17 +155,17 @@ namespace TravelioSOAP.Autos.Prerreserva
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class CrearPreReservaAutoResponse
+    public partial class validarDisponibilidadAutoResponse
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="CrearPreReservaAutoResponse", Namespace="http://rentaautos.ec/gestion", Order=0)]
-        public TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="validarDisponibilidadAutoResponse", Namespace="http://integracion.rentaautos.com/booking", Order=0)]
+        public TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoResponseBody Body;
         
-        public CrearPreReservaAutoResponse()
+        public validarDisponibilidadAutoResponse()
         {
         }
         
-        public CrearPreReservaAutoResponse(TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoResponseBody Body)
+        public validarDisponibilidadAutoResponse(TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoResponseBody Body)
         {
             this.Body = Body;
         }
@@ -188,31 +174,31 @@ namespace TravelioSOAP.Autos.Prerreserva
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.ec/gestion")]
-    public partial class CrearPreReservaAutoResponseBody
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://integracion.rentaautos.com/booking")]
+    public partial class validarDisponibilidadAutoResponseBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public TravelioSOAP.Autos.Prerreserva.PreReservaAutoResponseDto CrearPreReservaAutoResult;
+        public TravelioSOAP.Autos.Disponibilidad.ValidarDisponibilidadSoapResponse validarDisponibilidadAutoResult;
         
-        public CrearPreReservaAutoResponseBody()
+        public validarDisponibilidadAutoResponseBody()
         {
         }
         
-        public CrearPreReservaAutoResponseBody(TravelioSOAP.Autos.Prerreserva.PreReservaAutoResponseDto CrearPreReservaAutoResult)
+        public validarDisponibilidadAutoResponseBody(TravelioSOAP.Autos.Disponibilidad.ValidarDisponibilidadSoapResponse validarDisponibilidadAutoResult)
         {
-            this.CrearPreReservaAutoResult = CrearPreReservaAutoResult;
+            this.validarDisponibilidadAutoResult = validarDisponibilidadAutoResult;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public interface WS_Integracion_ServicioSoapChannel : TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap, System.ServiceModel.IClientChannel
+    public interface WS_DisponibilidadAutosSoapChannel : TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public partial class WS_Integracion_ServicioSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap>, TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap
+    public partial class WS_DisponibilidadAutosSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap>, TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap
     {
         
         /// <summary>
@@ -222,44 +208,46 @@ namespace TravelioSOAP.Autos.Prerreserva
         /// <param name="clientCredentials">Credenciales de cliente</param>
         static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
-        public WS_Integracion_ServicioSoapClient(EndpointConfiguration endpointConfiguration) : 
-                base(WS_Integracion_ServicioSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_Integracion_ServicioSoapClient.GetEndpointAddress(endpointConfiguration))
+        public WS_DisponibilidadAutosSoapClient(EndpointConfiguration endpointConfiguration) : 
+                base(WS_DisponibilidadAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_DisponibilidadAutosSoapClient.GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServicioSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
-                base(WS_Integracion_ServicioSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+        public WS_DisponibilidadAutosSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+                base(WS_DisponibilidadAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServicioSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(WS_Integracion_ServicioSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public WS_DisponibilidadAutosSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(WS_DisponibilidadAutosSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServicioSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public WS_DisponibilidadAutosSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoResponse> TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap.CrearPreReservaAutoAsync(TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequest request)
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoResponse> TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap.validarDisponibilidadAutoAsync(TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequest request)
         {
-            return base.Channel.CrearPreReservaAutoAsync(request);
+            return base.Channel.validarDisponibilidadAutoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoResponse> CrearPreReservaAutoAsync(TravelioSOAP.Autos.Prerreserva.PreReservaAutoRequestDto request)
+        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoResponse> validarDisponibilidadAutoAsync(string idVehiculo, System.DateTime fechaInicio, System.DateTime fechaFin)
         {
-            TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequest inValue = new TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequest();
-            inValue.Body = new TravelioSOAP.Autos.Prerreserva.CrearPreReservaAutoRequestBody();
-            inValue.Body.request = request;
-            return ((TravelioSOAP.Autos.Prerreserva.WS_Integracion_ServicioSoap)(this)).CrearPreReservaAutoAsync(inValue);
+            TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequest inValue = new TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequest();
+            inValue.Body = new TravelioSOAP.Autos.Disponibilidad.validarDisponibilidadAutoRequestBody();
+            inValue.Body.idVehiculo = idVehiculo;
+            inValue.Body.fechaInicio = fechaInicio;
+            inValue.Body.fechaFin = fechaFin;
+            return ((TravelioSOAP.Autos.Disponibilidad.WS_DisponibilidadAutosSoap)(this)).validarDisponibilidadAutoAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -276,7 +264,7 @@ namespace TravelioSOAP.Autos.Prerreserva
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServicioSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_DisponibilidadAutosSoap))
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
@@ -285,7 +273,7 @@ namespace TravelioSOAP.Autos.Prerreserva
                 result.AllowCookies = true;
                 return result;
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServicioSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_DisponibilidadAutosSoap12))
             {
                 System.ServiceModel.Channels.CustomBinding result = new System.ServiceModel.Channels.CustomBinding();
                 System.ServiceModel.Channels.TextMessageEncodingBindingElement textBindingElement = new System.ServiceModel.Channels.TextMessageEncodingBindingElement();
@@ -303,13 +291,13 @@ namespace TravelioSOAP.Autos.Prerreserva
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServicioSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_DisponibilidadAutosSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion_Servicio.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_DisponibilidadAutos.asmx");
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServicioSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_DisponibilidadAutosSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion_Servicio.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_DisponibilidadAutos.asmx");
             }
             throw new System.InvalidOperationException(string.Format("No se pudo encontrar un punto de conexión con el nombre \"{0}\".", endpointConfiguration));
         }
@@ -317,9 +305,9 @@ namespace TravelioSOAP.Autos.Prerreserva
         public enum EndpointConfiguration
         {
             
-            WS_Integracion_ServicioSoap,
+            WS_DisponibilidadAutosSoap,
             
-            WS_Integracion_ServicioSoap12,
+            WS_DisponibilidadAutosSoap12,
         }
     }
 }

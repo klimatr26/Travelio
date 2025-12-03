@@ -14,7 +14,7 @@ namespace TravelioSOAP.Autos.Cliente
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UsuarioExternoDto", Namespace="http://rentaautos.com/aerolinea")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UsuarioExternoDto", Namespace="http://rentaautos.ec/gestion")]
     public partial class UsuarioExternoDto : object
     {
         
@@ -96,15 +96,21 @@ namespace TravelioSOAP.Autos.Cliente
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UsuarioCreado", Namespace="http://rentaautos.com/aerolinea")]
-    public partial class UsuarioCreado : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="UsuarioProcesadoResponseDto", Namespace="http://rentaautos.ec/gestion")]
+    public partial class UsuarioProcesadoResponseDto : object
     {
         
         private int IdUsuarioField;
         
-        private string NombreField;
+        private string BookingUserIdField;
+        
+        private string NombreCompletoField;
         
         private string EmailField;
+        
+        private string TelefonoField;
+        
+        private string PaisField;
         
         private string EstadoField;
         
@@ -121,20 +127,33 @@ namespace TravelioSOAP.Autos.Cliente
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string Nombre
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string BookingUserId
         {
             get
             {
-                return this.NombreField;
+                return this.BookingUserIdField;
             }
             set
             {
-                this.NombreField = value;
+                this.BookingUserIdField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string NombreCompleto
+        {
+            get
+            {
+                return this.NombreCompletoField;
+            }
+            set
+            {
+                this.NombreCompletoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
         public string Email
         {
             get
@@ -147,7 +166,33 @@ namespace TravelioSOAP.Autos.Cliente
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string Telefono
+        {
+            get
+            {
+                return this.TelefonoField;
+            }
+            set
+            {
+                this.TelefonoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string Pais
+        {
+            get
+            {
+                return this.PaisField;
+            }
+            set
+            {
+                this.PaisField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
         public string Estado
         {
             get
@@ -162,29 +207,29 @@ namespace TravelioSOAP.Autos.Cliente
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://rentaautos.com/aerolinea", ConfigurationName="TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://rentaautos.ec/gestion", ConfigurationName="TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap")]
     public interface WS_UsuarioExternoSoap
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://rentaautos.com/aerolinea/CrearUsuarioExterno", ReplyAction="*")]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.CrearUsuarioExternoResponse> CrearUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://rentaautos.ec/gestion/ProcesarUsuarioExterno", ReplyAction="*")]
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoResponse> ProcesarUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class CrearUsuarioExternoRequest
+    public partial class ProcesarUsuarioExternoRequest
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="CrearUsuarioExterno", Namespace="http://rentaautos.com/aerolinea", Order=0)]
-        public TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ProcesarUsuarioExterno", Namespace="http://rentaautos.ec/gestion", Order=0)]
+        public TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequestBody Body;
         
-        public CrearUsuarioExternoRequest()
+        public ProcesarUsuarioExternoRequest()
         {
         }
         
-        public CrearUsuarioExternoRequest(TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequestBody Body)
+        public ProcesarUsuarioExternoRequest(TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequestBody Body)
         {
             this.Body = Body;
         }
@@ -193,18 +238,18 @@ namespace TravelioSOAP.Autos.Cliente
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.com/aerolinea")]
-    public partial class CrearUsuarioExternoRequestBody
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.ec/gestion")]
+    public partial class ProcesarUsuarioExternoRequestBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
         public TravelioSOAP.Autos.Cliente.UsuarioExternoDto nuevoUsuario;
         
-        public CrearUsuarioExternoRequestBody()
+        public ProcesarUsuarioExternoRequestBody()
         {
         }
         
-        public CrearUsuarioExternoRequestBody(TravelioSOAP.Autos.Cliente.UsuarioExternoDto nuevoUsuario)
+        public ProcesarUsuarioExternoRequestBody(TravelioSOAP.Autos.Cliente.UsuarioExternoDto nuevoUsuario)
         {
             this.nuevoUsuario = nuevoUsuario;
         }
@@ -214,17 +259,17 @@ namespace TravelioSOAP.Autos.Cliente
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class CrearUsuarioExternoResponse
+    public partial class ProcesarUsuarioExternoResponse
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="CrearUsuarioExternoResponse", Namespace="http://rentaautos.com/aerolinea", Order=0)]
-        public TravelioSOAP.Autos.Cliente.CrearUsuarioExternoResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ProcesarUsuarioExternoResponse", Namespace="http://rentaautos.ec/gestion", Order=0)]
+        public TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoResponseBody Body;
         
-        public CrearUsuarioExternoResponse()
+        public ProcesarUsuarioExternoResponse()
         {
         }
         
-        public CrearUsuarioExternoResponse(TravelioSOAP.Autos.Cliente.CrearUsuarioExternoResponseBody Body)
+        public ProcesarUsuarioExternoResponse(TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoResponseBody Body)
         {
             this.Body = Body;
         }
@@ -233,20 +278,20 @@ namespace TravelioSOAP.Autos.Cliente
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.com/aerolinea")]
-    public partial class CrearUsuarioExternoResponseBody
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://rentaautos.ec/gestion")]
+    public partial class ProcesarUsuarioExternoResponseBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public TravelioSOAP.Autos.Cliente.UsuarioCreado CrearUsuarioExternoResult;
+        public TravelioSOAP.Autos.Cliente.UsuarioProcesadoResponseDto ProcesarUsuarioExternoResult;
         
-        public CrearUsuarioExternoResponseBody()
+        public ProcesarUsuarioExternoResponseBody()
         {
         }
         
-        public CrearUsuarioExternoResponseBody(TravelioSOAP.Autos.Cliente.UsuarioCreado CrearUsuarioExternoResult)
+        public ProcesarUsuarioExternoResponseBody(TravelioSOAP.Autos.Cliente.UsuarioProcesadoResponseDto ProcesarUsuarioExternoResult)
         {
-            this.CrearUsuarioExternoResult = CrearUsuarioExternoResult;
+            this.ProcesarUsuarioExternoResult = ProcesarUsuarioExternoResult;
         }
     }
     
@@ -294,17 +339,17 @@ namespace TravelioSOAP.Autos.Cliente
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.CrearUsuarioExternoResponse> TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap.CrearUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequest request)
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoResponse> TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap.ProcesarUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequest request)
         {
-            return base.Channel.CrearUsuarioExternoAsync(request);
+            return base.Channel.ProcesarUsuarioExternoAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.CrearUsuarioExternoResponse> CrearUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.UsuarioExternoDto nuevoUsuario)
+        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoResponse> ProcesarUsuarioExternoAsync(TravelioSOAP.Autos.Cliente.UsuarioExternoDto nuevoUsuario)
         {
-            TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequest inValue = new TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequest();
-            inValue.Body = new TravelioSOAP.Autos.Cliente.CrearUsuarioExternoRequestBody();
+            TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequest inValue = new TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequest();
+            inValue.Body = new TravelioSOAP.Autos.Cliente.ProcesarUsuarioExternoRequestBody();
             inValue.Body.nuevoUsuario = nuevoUsuario;
-            return ((TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap)(this)).CrearUsuarioExternoAsync(inValue);
+            return ((TravelioSOAP.Autos.Cliente.WS_UsuarioExternoSoap)(this)).ProcesarUsuarioExternoAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

@@ -7,140 +7,50 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TravelioSOAP.Autos.Reserva
+namespace TravelioSOAP.Autos.Facturacion
 {
     using System.Runtime.Serialization;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ReservaDto", Namespace="http://integracion.rentaautos.com.ec/")]
-    public partial class ReservaDto : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="FacturaCreadaDto", Namespace="http://integracion.rentaautos.com.ec/")]
+    public partial class FacturaCreadaDto : object
     {
         
-        private int IdReservaField;
+        private string IdFacturaField;
         
-        private string NombreUsuarioField;
-        
-        private int IdVehiculoField;
-        
-        private string VehiculoNombreField;
-        
-        private string NumeroMatriculaField;
-        
-        private System.DateTime FechaInicioField;
-        
-        private System.DateTime FechaFinField;
-        
-        private decimal TotalField;
+        private string UrlFacturaField;
         
         private string EstadoField;
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int IdReserva
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string IdFactura
         {
             get
             {
-                return this.IdReservaField;
+                return this.IdFacturaField;
             }
             set
             {
-                this.IdReservaField = value;
+                this.IdFacturaField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public string NombreUsuario
+        public string UrlFactura
         {
             get
             {
-                return this.NombreUsuarioField;
+                return this.UrlFacturaField;
             }
             set
             {
-                this.NombreUsuarioField = value;
+                this.UrlFacturaField = value;
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
-        public int IdVehiculo
-        {
-            get
-            {
-                return this.IdVehiculoField;
-            }
-            set
-            {
-                this.IdVehiculoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
-        public string VehiculoNombre
-        {
-            get
-            {
-                return this.VehiculoNombreField;
-            }
-            set
-            {
-                this.VehiculoNombreField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public string NumeroMatricula
-        {
-            get
-            {
-                return this.NumeroMatriculaField;
-            }
-            set
-            {
-                this.NumeroMatriculaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
-        public System.DateTime FechaInicio
-        {
-            get
-            {
-                return this.FechaInicioField;
-            }
-            set
-            {
-                this.FechaInicioField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
-        public System.DateTime FechaFin
-        {
-            get
-            {
-                return this.FechaFinField;
-            }
-            set
-            {
-                this.FechaFinField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=7)]
-        public decimal Total
-        {
-            get
-            {
-                return this.TotalField;
-            }
-            set
-            {
-                this.TotalField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=8)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
         public string Estado
         {
             get
@@ -155,32 +65,32 @@ namespace TravelioSOAP.Autos.Reserva
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://integracion.rentaautos.com.ec/", ConfigurationName="TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap")]
-    public interface WS_Integracion_ServiciosSoap
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://integracion.rentaautos.com.ec/", ConfigurationName="TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap")]
+    public interface WS_FacturaIntegracionSoap
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://integracion.rentaautos.com.ec/ReservarAuto", ReplyAction="*")]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.ReservarAutoResponse> ReservarAutoAsync(TravelioSOAP.Autos.Reserva.ReservarAutoRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://integracion.rentaautos.com.ec/EmitirFactura", ReplyAction="*")]
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.EmitirFacturaResponse> EmitirFacturaAsync(TravelioSOAP.Autos.Facturacion.EmitirFacturaRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://integracion.rentaautos.com.ec/TestConexion", ReplyAction="*")]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.TestConexionResponse> TestConexionAsync(TravelioSOAP.Autos.Reserva.TestConexionRequest request);
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.TestConexionResponse> TestConexionAsync(TravelioSOAP.Autos.Facturacion.TestConexionRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ReservarAutoRequest
+    public partial class EmitirFacturaRequest
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReservarAuto", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
-        public TravelioSOAP.Autos.Reserva.ReservarAutoRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="EmitirFactura", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
+        public TravelioSOAP.Autos.Facturacion.EmitirFacturaRequestBody Body;
         
-        public ReservarAutoRequest()
+        public EmitirFacturaRequest()
         {
         }
         
-        public ReservarAutoRequest(TravelioSOAP.Autos.Reserva.ReservarAutoRequestBody Body)
+        public EmitirFacturaRequest(TravelioSOAP.Autos.Facturacion.EmitirFacturaRequestBody Body)
         {
             this.Body = Body;
         }
@@ -190,51 +100,39 @@ namespace TravelioSOAP.Autos.Reserva
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://integracion.rentaautos.com.ec/")]
-    public partial class ReservarAutoRequestBody
+    public partial class EmitirFacturaRequestBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string id_auto;
+        public string id_reserva;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
-        public string id_hold;
+        public string correo;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
         public string nombre;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
-        public string apellido;
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
         public string tipo_identificacion;
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
         public string identificacion;
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
-        public string correo;
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public decimal valor;
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-        public System.DateTime fecha_inicio;
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-        public System.DateTime fecha_fin;
-        
-        public ReservarAutoRequestBody()
+        public EmitirFacturaRequestBody()
         {
         }
         
-        public ReservarAutoRequestBody(string id_auto, string id_hold, string nombre, string apellido, string tipo_identificacion, string identificacion, string correo, System.DateTime fecha_inicio, System.DateTime fecha_fin)
+        public EmitirFacturaRequestBody(string id_reserva, string correo, string nombre, string tipo_identificacion, string identificacion, decimal valor)
         {
-            this.id_auto = id_auto;
-            this.id_hold = id_hold;
+            this.id_reserva = id_reserva;
+            this.correo = correo;
             this.nombre = nombre;
-            this.apellido = apellido;
             this.tipo_identificacion = tipo_identificacion;
             this.identificacion = identificacion;
-            this.correo = correo;
-            this.fecha_inicio = fecha_inicio;
-            this.fecha_fin = fecha_fin;
+            this.valor = valor;
         }
     }
     
@@ -242,17 +140,17 @@ namespace TravelioSOAP.Autos.Reserva
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ReservarAutoResponse
+    public partial class EmitirFacturaResponse
     {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="ReservarAutoResponse", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
-        public TravelioSOAP.Autos.Reserva.ReservarAutoResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="EmitirFacturaResponse", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
+        public TravelioSOAP.Autos.Facturacion.EmitirFacturaResponseBody Body;
         
-        public ReservarAutoResponse()
+        public EmitirFacturaResponse()
         {
         }
         
-        public ReservarAutoResponse(TravelioSOAP.Autos.Reserva.ReservarAutoResponseBody Body)
+        public EmitirFacturaResponse(TravelioSOAP.Autos.Facturacion.EmitirFacturaResponseBody Body)
         {
             this.Body = Body;
         }
@@ -262,19 +160,19 @@ namespace TravelioSOAP.Autos.Reserva
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://integracion.rentaautos.com.ec/")]
-    public partial class ReservarAutoResponseBody
+    public partial class EmitirFacturaResponseBody
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public TravelioSOAP.Autos.Reserva.ReservaDto ReservarAutoResult;
+        public TravelioSOAP.Autos.Facturacion.FacturaCreadaDto EmitirFacturaResult;
         
-        public ReservarAutoResponseBody()
+        public EmitirFacturaResponseBody()
         {
         }
         
-        public ReservarAutoResponseBody(TravelioSOAP.Autos.Reserva.ReservaDto ReservarAutoResult)
+        public EmitirFacturaResponseBody(TravelioSOAP.Autos.Facturacion.FacturaCreadaDto EmitirFacturaResult)
         {
-            this.ReservarAutoResult = ReservarAutoResult;
+            this.EmitirFacturaResult = EmitirFacturaResult;
         }
     }
     
@@ -286,13 +184,13 @@ namespace TravelioSOAP.Autos.Reserva
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="TestConexion", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
-        public TravelioSOAP.Autos.Reserva.TestConexionRequestBody Body;
+        public TravelioSOAP.Autos.Facturacion.TestConexionRequestBody Body;
         
         public TestConexionRequest()
         {
         }
         
-        public TestConexionRequest(TravelioSOAP.Autos.Reserva.TestConexionRequestBody Body)
+        public TestConexionRequest(TravelioSOAP.Autos.Facturacion.TestConexionRequestBody Body)
         {
             this.Body = Body;
         }
@@ -318,13 +216,13 @@ namespace TravelioSOAP.Autos.Reserva
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="TestConexionResponse", Namespace="http://integracion.rentaautos.com.ec/", Order=0)]
-        public TravelioSOAP.Autos.Reserva.TestConexionResponseBody Body;
+        public TravelioSOAP.Autos.Facturacion.TestConexionResponseBody Body;
         
         public TestConexionResponse()
         {
         }
         
-        public TestConexionResponse(TravelioSOAP.Autos.Reserva.TestConexionResponseBody Body)
+        public TestConexionResponse(TravelioSOAP.Autos.Facturacion.TestConexionResponseBody Body)
         {
             this.Body = Body;
         }
@@ -351,13 +249,13 @@ namespace TravelioSOAP.Autos.Reserva
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public interface WS_Integracion_ServiciosSoapChannel : TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap, System.ServiceModel.IClientChannel
+    public interface WS_FacturaIntegracionSoapChannel : TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    public partial class WS_Integracion_ServiciosSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap>, TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap
+    public partial class WS_FacturaIntegracionSoapClient : System.ServiceModel.ClientBase<TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap>, TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap
     {
         
         /// <summary>
@@ -367,65 +265,62 @@ namespace TravelioSOAP.Autos.Reserva
         /// <param name="clientCredentials">Credenciales de cliente</param>
         static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
-        public WS_Integracion_ServiciosSoapClient(EndpointConfiguration endpointConfiguration) : 
-                base(WS_Integracion_ServiciosSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_Integracion_ServiciosSoapClient.GetEndpointAddress(endpointConfiguration))
+        public WS_FacturaIntegracionSoapClient(EndpointConfiguration endpointConfiguration) : 
+                base(WS_FacturaIntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), WS_FacturaIntegracionSoapClient.GetEndpointAddress(endpointConfiguration))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServiciosSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
-                base(WS_Integracion_ServiciosSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
+        public WS_FacturaIntegracionSoapClient(EndpointConfiguration endpointConfiguration, string remoteAddress) : 
+                base(WS_FacturaIntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), new System.ServiceModel.EndpointAddress(remoteAddress))
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServiciosSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(WS_Integracion_ServiciosSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
+        public WS_FacturaIntegracionSoapClient(EndpointConfiguration endpointConfiguration, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(WS_FacturaIntegracionSoapClient.GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             this.Endpoint.Name = endpointConfiguration.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
-        public WS_Integracion_ServiciosSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public WS_FacturaIntegracionSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress)
         {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.ReservarAutoResponse> TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap.ReservarAutoAsync(TravelioSOAP.Autos.Reserva.ReservarAutoRequest request)
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.EmitirFacturaResponse> TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap.EmitirFacturaAsync(TravelioSOAP.Autos.Facturacion.EmitirFacturaRequest request)
         {
-            return base.Channel.ReservarAutoAsync(request);
+            return base.Channel.EmitirFacturaAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.ReservarAutoResponse> ReservarAutoAsync(string id_auto, string id_hold, string nombre, string apellido, string tipo_identificacion, string identificacion, string correo, System.DateTime fecha_inicio, System.DateTime fecha_fin)
+        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.EmitirFacturaResponse> EmitirFacturaAsync(string id_reserva, string correo, string nombre, string tipo_identificacion, string identificacion, decimal valor)
         {
-            TravelioSOAP.Autos.Reserva.ReservarAutoRequest inValue = new TravelioSOAP.Autos.Reserva.ReservarAutoRequest();
-            inValue.Body = new TravelioSOAP.Autos.Reserva.ReservarAutoRequestBody();
-            inValue.Body.id_auto = id_auto;
-            inValue.Body.id_hold = id_hold;
+            TravelioSOAP.Autos.Facturacion.EmitirFacturaRequest inValue = new TravelioSOAP.Autos.Facturacion.EmitirFacturaRequest();
+            inValue.Body = new TravelioSOAP.Autos.Facturacion.EmitirFacturaRequestBody();
+            inValue.Body.id_reserva = id_reserva;
+            inValue.Body.correo = correo;
             inValue.Body.nombre = nombre;
-            inValue.Body.apellido = apellido;
             inValue.Body.tipo_identificacion = tipo_identificacion;
             inValue.Body.identificacion = identificacion;
-            inValue.Body.correo = correo;
-            inValue.Body.fecha_inicio = fecha_inicio;
-            inValue.Body.fecha_fin = fecha_fin;
-            return ((TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap)(this)).ReservarAutoAsync(inValue);
+            inValue.Body.valor = valor;
+            return ((TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap)(this)).EmitirFacturaAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.TestConexionResponse> TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap.TestConexionAsync(TravelioSOAP.Autos.Reserva.TestConexionRequest request)
+        System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.TestConexionResponse> TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap.TestConexionAsync(TravelioSOAP.Autos.Facturacion.TestConexionRequest request)
         {
             return base.Channel.TestConexionAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Reserva.TestConexionResponse> TestConexionAsync()
+        public System.Threading.Tasks.Task<TravelioSOAP.Autos.Facturacion.TestConexionResponse> TestConexionAsync()
         {
-            TravelioSOAP.Autos.Reserva.TestConexionRequest inValue = new TravelioSOAP.Autos.Reserva.TestConexionRequest();
-            inValue.Body = new TravelioSOAP.Autos.Reserva.TestConexionRequestBody();
-            return ((TravelioSOAP.Autos.Reserva.WS_Integracion_ServiciosSoap)(this)).TestConexionAsync(inValue);
+            TravelioSOAP.Autos.Facturacion.TestConexionRequest inValue = new TravelioSOAP.Autos.Facturacion.TestConexionRequest();
+            inValue.Body = new TravelioSOAP.Autos.Facturacion.TestConexionRequestBody();
+            return ((TravelioSOAP.Autos.Facturacion.WS_FacturaIntegracionSoap)(this)).TestConexionAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -442,7 +337,7 @@ namespace TravelioSOAP.Autos.Reserva
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServiciosSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_FacturaIntegracionSoap))
             {
                 System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
@@ -451,7 +346,7 @@ namespace TravelioSOAP.Autos.Reserva
                 result.AllowCookies = true;
                 return result;
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServiciosSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_FacturaIntegracionSoap12))
             {
                 System.ServiceModel.Channels.CustomBinding result = new System.ServiceModel.Channels.CustomBinding();
                 System.ServiceModel.Channels.TextMessageEncodingBindingElement textBindingElement = new System.ServiceModel.Channels.TextMessageEncodingBindingElement();
@@ -469,13 +364,13 @@ namespace TravelioSOAP.Autos.Reserva
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServiciosSoap))
+            if ((endpointConfiguration == EndpointConfiguration.WS_FacturaIntegracionSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion_Servicios.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_FacturaIntegracion.asmx");
             }
-            if ((endpointConfiguration == EndpointConfiguration.WS_Integracion_ServiciosSoap12))
+            if ((endpointConfiguration == EndpointConfiguration.WS_FacturaIntegracionSoap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_Integracion_Servicios.asmx");
+                return new System.ServiceModel.EndpointAddress("http://cuencautosrenta.runasp.net/WS_FacturaIntegracion.asmx");
             }
             throw new System.InvalidOperationException(string.Format("No se pudo encontrar un punto de conexión con el nombre \"{0}\".", endpointConfiguration));
         }
@@ -483,9 +378,9 @@ namespace TravelioSOAP.Autos.Reserva
         public enum EndpointConfiguration
         {
             
-            WS_Integracion_ServiciosSoap,
+            WS_FacturaIntegracionSoap,
             
-            WS_Integracion_ServiciosSoap12,
+            WS_FacturaIntegracionSoap12,
         }
     }
 }
