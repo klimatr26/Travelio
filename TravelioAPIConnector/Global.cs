@@ -13,7 +13,7 @@ public static class Global
     public static Binding GetBinding(string uri)
     {
         return uri.StartsWith("https", StringComparison.OrdinalIgnoreCase)
-            ? new BasicHttpsBinding()
-            : new BasicHttpBinding();
+            ? new BasicHttpsBinding() { MaxReceivedMessageSize = 10_485_760 }
+            : new BasicHttpBinding() { MaxReceivedMessageSize = 10_485_760 };
     }
 }
