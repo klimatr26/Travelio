@@ -1,11 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text;
 
 namespace TravelioREST.Autos;
 
 
+public class AutoReservaRequest
+{
+    public string id_auto { get; set; }
+    public string id_hold { get; set; }
+    public string nombre { get; set; }
+    public string apellido { get; set; }
+    public string tipo_identificacion { get; set; }
+    public string identificacion { get; set; }
+    public string correo { get; set; }
+    public DateTime fecha_inicio { get; set; }
+    public DateTime fecha_fin { get; set; }
+}
+
+
+/*
 public sealed class AutoReservaRequest
 {
     public required string id_auto { get; set; }
@@ -18,6 +34,7 @@ public sealed class AutoReservaRequest
     public DateTime fecha_inicio { get; set; }
     public DateTime fecha_fin { get; set; }
 }
+*/
 
 /*
  {
@@ -67,35 +84,81 @@ public sealed class AutoReservaRequest
 }
  */
 
-public sealed class ReservaResponse
+
+/*
 {
-    public required DatosReserva datos { get; set; }
-    public required _Links[] _links { get; set; }
+  "datos": {
+    "mensaje": "Reserva creada correctamente",
+    "id_reserva": 75,
+    "id_hold": "31",
+    "id_auto": "22",
+    "nombre_titular": "string string",
+    "identificacion": null,
+    "correo": "string",
+    "vehiculo": "Kia Rio WS2E81",
+    "fecha_inicio": "2025-12-03T14:16:18.442Z",
+    "fecha_fin": "2025-12-04T14:16:18.442Z",
+    "total": 35,
+    "estado": "Confirmada"
+  },
+  "_links": [
+    {
+      "rel": "self",
+      "href": "http://cuencautosinte.runasp.net/api/ReservaIntegracion",
+      "method": "POST"
+    },
+    {
+      "rel": "detalle_reserva",
+      "href": "http://cuencautosinte.runasp.net/api/Reserva/75",
+      "method": "GET"
+    },
+    {
+      "rel": "detalle_hold",
+      "href": "http://cuencautosinte.runasp.net/api/IntegracionHold?id_hold=31",
+      "method": "GET"
+    },
+    {
+      "rel": "detalle_auto",
+      "href": "http://cuencautosinte.runasp.net/api/Autos?id_auto=22",
+      "method": "GET"
+    },
+    {
+      "rel": "emitir_factura",
+      "href": "http://cuencautosinte.runasp.net/api/EmitirFactura",
+      "method": "POST"
+    }
+  ]
+}
+ */
+
+
+public class ReservaResponse
+{
+    public DatosReserva datos { get; set; }
+    public _LinksReserva[] _links { get; set; }
 }
 
-public sealed class DatosReserva
+public class DatosReserva
 {
-    public required string mensaje { get; set; }
-    public required int id_reserva { get; set; }
-    public required string id_hold { get; set; }
-    public required string id_auto { get; set; }
-    public required string nombre_titular { get; set; }
-    public required string tipo_identificacion { get; set; }
-    public required string identificacion { get; set; }
-    public required string correo { get; set; }
-    public required string vehiculo { get; set; }
+    public string mensaje { get; set; }
+    public int id_reserva { get; set; }
+    public string id_hold { get; set; }
+    public string id_auto { get; set; }
+    public string nombre_titular { get; set; }
+    public string identificacion { get; set; }
+    public string correo { get; set; }
+    public string vehiculo { get; set; }
     public DateTime fecha_inicio { get; set; }
     public DateTime fecha_fin { get; set; }
-    public float total { get; set; }
-    public required string estado { get; set; }
-    public DateTime fecha_reserva { get; set; }
+    public decimal total { get; set; }
+    public string estado { get; set; }
 }
 
-public sealed class _Links
+public class _LinksReserva
 {
-    public required string rel { get; set; }
-    public required string href { get; set; }
-    public required string method { get; set; }
+    public string rel { get; set; }
+    public string href { get; set; }
+    public string method { get; set; }
 }
 
 public static class AutosReservaCreador
@@ -124,6 +187,7 @@ public static class AutosReservaCreador
             fecha_fin = fechaFin
         };
         var response = await Global.CachedHttpClient.PostAsJsonAsync(url, request);
+        Debug.WriteLine($"{response.StatusCode}");
         var reserva = await response.Content.ReadFromJsonAsync<ReservaResponse>();
         return reserva ?? throw new InvalidOperationException("No se pudo crear la reserva.");
     }

@@ -30,9 +30,9 @@ internal static class ConnectionTest
 
         const string checkAvailabilityUri = Global.IsREST ? restCheckAvailabilityUri : soapCheckAvailabilityUri;
 
-        var firstCarId = autos[^2].IdAuto;
+        var firstCarId = autos[^3].IdAuto;
 
-        var isAvailable = await Connector.VerificarDisponibilidadAutoAsync(checkAvailabilityUri, firstCarId, DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1));
+        var isAvailable = await Connector.VerificarDisponibilidadAutoAsync(checkAvailabilityUri, firstCarId, DateTime.Now.AddDays(14).AddYears(1), DateTime.Now.AddDays(19).AddYears(1));
         Console.WriteLine($"El vehículo con Id '{firstCarId}' {(isAvailable ? "está" : "no está")} disponible.");
         var invalidIsAvailable = await Connector.VerificarDisponibilidadAutoAsync(checkAvailabilityUri, "32312", DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1));
         Console.WriteLine($"El vehículo con Id '32312' {(invalidIsAvailable ? "está" : "no está")} disponible.");
@@ -47,7 +47,7 @@ internal static class ConnectionTest
 
         const string createHoldUri = Global.IsREST ? restCreateHoldUri : soapCreateHoldUri;
 
-        var (holdId, holdExpiration) = await Connector.CrearPrerreservaAsync(createHoldUri, firstCarId, DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1), 5);
+        var (holdId, holdExpiration) = await Connector.CrearPrerreservaAsync(createHoldUri, firstCarId, DateTime.Now.AddDays(14).AddYears(1), DateTime.Now.AddDays(19).AddYears(1), 180);
 
         Console.WriteLine($"Prerreserva creada: '{holdId}', que expira el {holdExpiration}");
 
@@ -56,7 +56,7 @@ internal static class ConnectionTest
 
         const string createExternalClientUri = Global.IsREST ? restCreateExternalClientUri : soapCreateExternalClientUri;
 
-        var externalClientId = await Connector.CrearClienteExternoAsync(createExternalClientUri, "Juan", "Pérez", "jpere@correo.com");
+        var externalClientId = await Connector.CrearClienteExternoAsync(createExternalClientUri, "Benito", "Camelanuel", "bcamelanuel@correo.com");
 
         Console.WriteLine($"Cliente externo creado con Id: {externalClientId}");
 
@@ -65,7 +65,7 @@ internal static class ConnectionTest
 
         const string createReservationUri = Global.IsREST ? restCreateReservationUri : soapCreateReservationUri;
 
-        var reservationId = await Connector.CrearReservaAsync(createReservationUri, firstCarId, holdId, "Juan", "Pérez", "Cédula", "1234567890", "jpere@correo.com", DateTime.Now.AddDays(1).AddYears(1), DateTime.Now.AddDays(5).AddYears(1));
+        var reservationId = await Connector.CrearReservaAsync(createReservationUri, firstCarId, holdId, "Benito", "Camelanuel", "DNI", "2314567890", "bcamelanuel@correo.com", DateTime.Now.AddDays(14).AddYears(1), DateTime.Now.AddDays(19).AddYears(1));
 
         Console.WriteLine($"Reserva creada con Id: {reservationId}");
 
