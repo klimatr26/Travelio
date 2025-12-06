@@ -30,3 +30,10 @@ flowchart TD
 
 ## Estado
 El codigo aún no está completo; varias capas pueden cambiar conforme avance el desarrollo.
+
+## Solución de problemas comunes
+Al intentar ejecutar los proyectos, puede que sea necesario restaurar los paquetes NuGet. Esto se puede hacer desde Visual Studio o ejecutando el siguiente comando en el terminal:
+```
+dotnet restore
+```
+Además, asegúrate de que todas las dependencias estén correctamente instaladas y que las cadenas de conexión a la base de datos y a las APIs estén configuradas adecuadamente en los archivos de configuración correspondientes.
