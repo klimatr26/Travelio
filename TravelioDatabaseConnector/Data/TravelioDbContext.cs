@@ -4,12 +4,8 @@ using TravelioDatabaseConnector.Models;
 
 namespace TravelioDatabaseConnector.Data;
 
-public class TravelioDbContext : DbContext
+public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : DbContext(options)
 {
-    public TravelioDbContext(DbContextOptions<TravelioDbContext> options) : base(options)
-    {
-    }
-
     public DbSet<Cliente> Clientes => Set<Cliente>();
     public DbSet<Servicio> Servicios => Set<Servicio>();
     public DbSet<Reserva> Reservas => Set<Reserva>();
@@ -135,6 +131,7 @@ public class TravelioDbContext : DbContext
     {
         var servicios = new[]
         {
+            // Aerolínea
             new Servicio
             {
                 Id = 1,
@@ -143,22 +140,243 @@ public class TravelioDbContext : DbContext
                 NumeroCuenta = "AL-1001",
                 Activo = true
             },
+
+            // Habitaciones
+            // Pierre Montenegro
+            // Falta número de cuenta
+            //new Servicio
+            //{
+            //    Id = 101,
+            //    Nombre = "Hotel Campestre",
+            //    TipoServicio = TipoServicio.Hotel,
+            //    NumeroCuenta = "HT-2001",
+            //    Activo = true
+            //},
+
+            // Daniel Carranza
             new Servicio
             {
-                Id = 2,
-                Nombre = "Travelio Hotels",
+                Id = 102,
+                Nombre = "AllpahouseNYC",
                 TipoServicio = TipoServicio.Hotel,
-                NumeroCuenta = "HT-2001",
+                NumeroCuenta = "275",
                 Activo = true
             },
+
+            // Carlos Constante
             new Servicio
             {
-                Id = 3,
-                Nombre = "Travelio Cars",
-                TipoServicio = TipoServicio.RentaVehiculos,
-                NumeroCuenta = "CR-3001",
+                Id = 103,
+                Nombre = "Reca",
+                TipoServicio = TipoServicio.Hotel,
+                NumeroCuenta = "261",
                 Activo = true
-            }
+            },
+
+            // David Ocampo
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 104,
+            //    Nombre = "Brisamar",
+            //    TipoServicio = TipoServicio.Hotel,
+            //    NumeroCuenta = "261",
+            //    Activo = true
+            //},
+
+            // Alejandro Gómez
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 105,
+            //    Nombre = "Hotel Andino",
+            //    TipoServicio = TipoServicio.Hotel,
+            //    NumeroCuenta = "261",
+            //    Activo = true
+            //},
+
+            // Jossue Gallardo
+            new Servicio
+            {
+                Id = 106,
+                Nombre = "Aureacuen",
+                TipoServicio = TipoServicio.Hotel,
+                NumeroCuenta = "256",
+                Activo = true
+            },
+
+            // Autos
+            // Shirley Pilataxi
+            new Servicio
+            {
+                Id = 201,
+                Nombre = "Cuenca Wheels",
+                TipoServicio = TipoServicio.RentaVehiculos,
+                NumeroCuenta = "174",
+                Activo = true
+            },
+
+            // Marco Benítez
+            new Servicio
+            {
+                Id = 202,
+                Nombre = "LojitaGO",
+                TipoServicio = TipoServicio.RentaVehiculos,
+                NumeroCuenta = "185",
+                Activo = true
+            },
+
+            // Joel Tupiza
+            // Falta nombre y número de cuenta
+            //new Servicio
+            //{
+            //    Id = 203,
+            //    Nombre = "???",
+            //    TipoServicio = TipoServicio.RentaVehiculos,
+            //    NumeroCuenta = "185",
+            //    Activo = true
+            //},
+
+            // Mateo Sánchez
+            // Falta número de cuenta
+            //new Servicio
+            //{
+            //    Id = 204,
+            //    Nombre = "Auto Car Rent",
+            //    TipoServicio = TipoServicio.RentaVehiculos,
+            //    NumeroCuenta = "185",
+            //    Activo = true
+            //},
+
+            // Gabriel Naranjo
+            new Servicio
+            {
+                Id = 205,
+                Nombre = "RentaAutosGYE",
+                TipoServicio = TipoServicio.RentaVehiculos,
+                NumeroCuenta = "225",
+                Activo = true
+            },
+
+            // Alex Vivanco
+            new Servicio
+            {
+                Id = 206,
+                Nombre = "UrbanDrive NY",
+                TipoServicio = TipoServicio.RentaVehiculos,
+                NumeroCuenta = "227",
+                Activo = true
+            },
+
+            // Paquetes
+            // Christian Coba
+            new Servicio
+            {
+                Id = 301,
+                Nombre = "World Agency",
+                TipoServicio = TipoServicio.PaquetesTuristicos,
+                NumeroCuenta = "200",
+                Activo = true
+            },
+
+            // Jordi Nogales
+            // No tiene nada de información
+            //new Servicio
+            //{
+            //    Id = 302,
+            //    Nombre = "World Agency",
+            //    TipoServicio = TipoServicio.PaquetesTuristicos,
+            //    NumeroCuenta = "200",
+            //    Activo = true
+            //},
+
+            // Daniel Valenzuela
+            // Enlaces desactualizados
+            new Servicio
+            {
+                Id = 303,
+                Nombre = "Paquetes Turísticos Web",
+                TipoServicio = TipoServicio.PaquetesTuristicos,
+                NumeroCuenta = "220",
+                Activo = true
+            },
+
+            // Restaurantes
+            // Allisson Barros
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 401,
+            //    Nombre = "Cangrejitos Felices",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "CR-3001",
+            //    Activo = true
+            //},
+
+            // Nick Romero
+            new Servicio
+            {
+                Id = 402,
+                Nombre = "Dragón Rojo",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "216",
+                Activo = true
+            },
+
+            // Arturo Albuja
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 403,
+            //    Nombre = "Café San Juan",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "216",
+            //    Activo = true
+            //},
+
+            // Melany Acosta
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 404,
+            //    Nombre = "Sánctum",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "216",
+            //    Activo = true
+            //},
+
+            // Emilia Lara
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 405,
+            //    Nombre = "Sabor Andino",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "216",
+            //    Activo = true
+            //},
+
+            // Jordy Morales
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 406,
+            //    Nombre = "Bar Sinson",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "216",
+            //    Activo = true
+            //},
+
+            // Esteban Singo
+            // No hay número de cuenta
+            //new Servicio
+            //{
+            //    Id = 407,
+            //    Nombre = "7 Mares",
+            //    TipoServicio = TipoServicio.Restaurante,
+            //    NumeroCuenta = "216",
+            //    Activo = true
+            //},
         };
 
         modelBuilder.Entity<Servicio>().HasData(servicios);
