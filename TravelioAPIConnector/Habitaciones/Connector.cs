@@ -1,5 +1,6 @@
 using System;
 using System.ServiceModel;
+using TravelioREST.Habitaciones;
 using TravelioSOAP.Habitaciones.BuscarDatosReserva;
 using TravelioSOAP.Habitaciones.BuscarHabitaciones;
 using TravelioSOAP.Habitaciones.CrearPrerreserva;
@@ -25,7 +26,21 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var habitacionesRest = await HabitacionesGetter.GetHabitacionesAsync(uri, fechaInicio, fechaFin, tipoHabitacion, capacidad, precioMin, precioMax);
+            return Array.ConvertAll(habitacionesRest, h =>
+                new Habitacion(
+                    h.idHabitacion ?? string.Empty,
+                    h.nombreHabitacion ?? string.Empty,
+                    h.tipoHabitacion ?? string.Empty,
+                    h.nombreHotel ?? string.Empty,
+                    h.nombreCiudad ?? string.Empty,
+                    h.nombrePais ?? string.Empty,
+                    h.capacidad,
+                    h.precioNormal,
+                    h.precioActual,
+                    h.precioVigente,
+                    h.amenidades ?? string.Empty,
+                    (h.imagenes ?? string.Empty).Split('|', StringSplitOptions.RemoveEmptyEntries)));
         }
 
         var soapClient = new BuscarHabitacionesWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -39,7 +54,8 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var disponibilidad = await RoomCheckAvailable.CheckAvailabilityAsync(uri, idHabitacion, fechaInicio, fechaFin);
+            return disponibilidad.disponible;
         }
 
         var soapClient = new ValidarDisponibilidadWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -58,7 +74,8 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var hold = await HoldCreator.CrearHoldAsync(uri, idHabitacion, fechaInicio, fechaFin, numeroHuespedes, duracionHoldSegundos, precioActual);
+            return hold.idHold;
         }
 
         var soapClient = new CrearPreReservaWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -71,7 +88,8 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var cliente = await ClienteExternoCreator.CrearClienteExternoAsync(uri, correo, nombre, apellido);
+            return cliente.id;
         }
 
         var soapClient = new CrearUsuarioExternoWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -94,7 +112,8 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var reserva = await BookRoom.ReservarHabitacionAsync(uri, idHabitacion, idHold, nombre, apellido, correo, tipoDocumento, documento, fechaInicio, fechaFin, numeroHuespedes);
+            return reserva.idReserva;
         }
 
         var soapClient = new ReservarHabitacionWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -113,7 +132,8 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var invoice = await InvoiceGenerator.GenerarFacturaAsync(uri, idReserva, nombre, apellido, tipoDocumento, documento, correo);
+            return invoice.urlPdf ?? throw new InvalidOperationException("No se pudo emitir la factura.");
         }
 
         var soapClient = new EmitirFacturaHotelWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
@@ -125,37 +145,63 @@ public static class Connector
     {
         if (IsREST)
         {
-            throw new NotImplementedException("La integracion REST para habitaciones aun no esta disponible.");
+            var datos = await BookedRoomInfo.GetBookedRoomInfoAsync(uri, idReserva);
+            return new Reserva(
+                datos.idReserva,
+                (decimal)datos.costoTotal,
+                datos.fechaRegistro,
+                datos.inicio,
+                datos.fin,
+                datos.estadoGeneral ?? string.Empty,
+                datos.nombre ?? string.Empty,
+                datos.apellido ?? string.Empty,
+                datos.correo ?? string.Empty,
+                datos.idHabitacion ?? string.Empty,
+                datos.nombreHabitacion ?? string.Empty,
+                datos.tipoHabitacion ?? string.Empty,
+                datos.hotel ?? string.Empty,
+                datos.ciudad ?? string.Empty,
+                datos.pais ?? string.Empty,
+                datos.capacidadReserva,
+                (decimal)datos.costoCalculado,
+                datos.descuento,
+                (decimal)datos.impuestos,
+                datos.idHold ?? string.Empty,
+                datos.amenidades ?? string.Empty,
+                datos.imagenes?.Split('|') ?? Array.Empty<string>(),
+                datos.urlPdf ?? string.Empty);
         }
+        else
+        {
+            var soapClient = new BuscarDatosReservaWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            var response = await soapClient.buscarDatosReservaAsync(idReserva);
+            var datos = response.Body.buscarDatosReservaResult ?? throw new InvalidOperationException("No se pudieron obtener los datos de la reserva.");
 
-        var soapClient = new BuscarDatosReservaWSSoapClient(GetBinding(uri), new EndpointAddress(uri));
-        var response = await soapClient.buscarDatosReservaAsync(idReserva);
-        var datos = response.Body.buscarDatosReservaResult ?? throw new InvalidOperationException("No se pudieron obtener los datos de la reserva.");
-
-        return new Reserva(
-            datos.IdReserva,
-            datos.CostoTotal ?? 0m,
-            datos.FechaRegistro ?? DateTime.MinValue,
-            datos.Inicio ?? DateTime.MinValue,
-            datos.Fin ?? DateTime.MinValue,
-            datos.EstadoGeneral ?? string.Empty,
-            datos.Nombre ?? string.Empty,
-            datos.Apellido ?? string.Empty,
-            datos.Correo ?? string.Empty,
-            datos.IdHabitacion ?? string.Empty,
-            datos.NombreHabitacion ?? string.Empty,
-            datos.TipoHabitacion ?? string.Empty,
-            datos.Hotel ?? string.Empty,
-            datos.Ciudad ?? string.Empty,
-            datos.Pais ?? string.Empty,
-            datos.CapacidadReserva ?? 0,
-            datos.CostoCalculado ?? 0m,
-            datos.Descuento ?? 0m,
-            datos.Impuestos ?? 0m,
-            datos.IdHold ?? string.Empty,
-            datos.Amenidades ?? string.Empty,
-            datos.Imagenes?.Split('|') ?? [],
-            datos.UrlPdf ?? string.Empty);
+            return new Reserva(
+                datos.IdReserva,
+                datos.CostoTotal ?? 0m,
+                datos.FechaRegistro ?? DateTime.MinValue,
+                datos.Inicio ?? DateTime.MinValue,
+                datos.Fin ?? DateTime.MinValue,
+                datos.EstadoGeneral ?? string.Empty,
+                datos.Nombre ?? string.Empty,
+                datos.Apellido ?? string.Empty,
+                datos.Correo ?? string.Empty,
+                datos.IdHabitacion ?? string.Empty,
+                datos.NombreHabitacion ?? string.Empty,
+                datos.TipoHabitacion ?? string.Empty,
+                datos.Hotel ?? string.Empty,
+                datos.Ciudad ?? string.Empty,
+                datos.Pais ?? string.Empty,
+                datos.CapacidadReserva ?? 0,
+                datos.CostoCalculado ?? 0m,
+                datos.Descuento ?? 0m,
+                datos.Impuestos ?? 0m,
+                datos.IdHold ?? string.Empty,
+                datos.Amenidades ?? string.Empty,
+                datos.Imagenes?.Split('|') ?? [],
+                datos.UrlPdf ?? string.Empty);
+        }
     }
 
     private static Habitacion MapHabitacion(HabitacionListItemDto dto)

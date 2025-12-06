@@ -10,50 +10,55 @@ internal static class ConnectionTest
     {
         Console.WriteLine($"Probando {(Global.IsREST ? "REST" : "SOAP")}");
 
-        //const string soapBuscarHabitacionesUri = @"http://aureacuen.runasp.net/buscarHabitacionesWS.asmx?WSDL";
-        //const string soapValidarDisponibilidadUri = @"http://aureacuen.runasp.net/ValidarDisponibilidadWS.asmx?WSDL";
-        //const string soapCrearPreReservaUri = @"http://aureacuen.runasp.net/CrearPreReservaWS.asmx?WSDL";
-        //const string soapCrearUsuarioExternoUri = @"http://aureacuen.runasp.net/CrearUsuarioExternoWS.asmx?WSDL";
-        //const string soapReservarHabitacionUri = @"http://aureacuen.runasp.net/ReservarHabitacionWS.asmx?WSDL";
-        //const string soapEmitirFacturaUri = @"http://aureacuen.runasp.net/EmitirFacturaHotelWS.asmx?WSDL";
-        //const string soapBuscarDatosReservaUri = @"http://aureacuen.runasp.net/buscarDatosReservaWS.asmx?WSDL";
+        const string restBuscarHabitacionesUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/search";
+        const string soapBuscarHabitacionesUri = @"http://aureacuen.runasp.net/buscarHabitacionesWS.asmx";
+        var buscarHabitacionesUri = Global.IsREST ? restBuscarHabitacionesUri : soapBuscarHabitacionesUri;
 
-        const string soapBuscarHabitacionesUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/buscarHabitacionesWS.asmx?WSDL";
-        const string soapValidarDisponibilidadUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/ValidarDisponibilidadWS.asmx?WSDL";
-        const string soapCrearPreReservaUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/CrearPreReservaWS.asmx?WSDL";
-        const string soapCrearUsuarioExternoUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/CrearUsuarioExternoWS.asmx?WSDL";
-        const string soapReservarHabitacionUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/ReservarHabitacionWS.asmx?WSDL";
-        const string soapEmitirFacturaUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/EmitirFacturaHotelWS.asmx?WSDL";
-        const string soapBuscarDatosReservaUri = @"https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net/buscarDatosReservaWS.asmx?WSDL";
+        const string restValidarDisponibilidadUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/availability";
+        const string soapValidarDisponibilidadUri = @"http://aureacuen.runasp.net/ValidarDisponibilidadWS.asmx";
+        var validarDisponibilidadUri = Global.IsREST ? restValidarDisponibilidadUri : soapValidarDisponibilidadUri;
 
-        var habitaciones = await Connector.BuscarHabitacionesAsync(soapBuscarHabitacionesUri);
+        const string restCrearPreReservaUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/hold";
+        const string soapCrearPreReservaUri = @"http://aureacuen.runasp.net/CrearPreReservaWS.asmx";
+        var crearPreReservaUri = Global.IsREST ? restCrearPreReservaUri : soapCrearPreReservaUri;
+
+        const string restCrearUsuarioExternoUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/usuarios/externo";
+        const string soapCrearUsuarioExternoUri = @"http://aureacuen.runasp.net/CrearUsuarioExternoWS.asmx";
+        var crearUsuarioExternoUri = Global.IsREST ? restCrearUsuarioExternoUri : soapCrearUsuarioExternoUri;
+
+        const string restReservarHabitacionUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/book";
+        const string soapReservarHabitacionUri = @"http://aureacuen.runasp.net/ReservarHabitacionWS.asmx";
+        var reservarHabitacionUri = Global.IsREST ? restReservarHabitacionUri : soapReservarHabitacionUri;
+
+        const string restEmitirFacturaUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/invoices";
+        const string soapEmitirFacturaUri = @"http://aureacuen.runasp.net/EmitirFacturaHotelWS.asmx";
+        var emitirFacturaUri = Global.IsREST ? restEmitirFacturaUri : soapEmitirFacturaUri;
+
+        const string restBuscarDatosReservaUri = @"http://aureacuenrest.runasp.net/api/v1/hoteles/reserva";
+        const string soapBuscarDatosReservaUri = @"http://aureacuen.runasp.net/buscarDatosReservaWS.asmx";
+        var buscarDatosReservaUri = Global.IsREST ? restBuscarDatosReservaUri : soapBuscarDatosReservaUri;
+
+        var habitaciones = await Connector.BuscarHabitacionesAsync(buscarHabitacionesUri);
         if (habitaciones.Length == 0)
         {
             Console.WriteLine("No se encontraron habitaciones.");
             return;
         }
 
-        foreach (var hab in habitaciones)
-        {
-            Console.WriteLine(hab);
-        }
-
-        var habitacion = habitaciones[^13];
+        var habitacion = habitaciones[^2];
         Console.WriteLine($"Habitación seleccionada: {habitacion}");
 
-        var fechaInicio = DateTime.Now.Date.AddMonths(1);
+        var fechaInicio = DateTime.Now.Date.AddMonths(3);
         var fechaFin = fechaInicio.AddDays(3);
 
-        var disponible = await Connector.ValidarDisponibilidadAsync(soapValidarDisponibilidadUri, habitacion.IdHabitacion, fechaInicio, fechaFin);
-        Console.WriteLine($"La habitación {habitacion.IdHabitacion} {(disponible ? "está" : "no está")} disponible entre {fechaInicio:d} y {fechaFin:d}.");
+        var disponible = await Connector.ValidarDisponibilidadAsync(validarDisponibilidadUri, habitacion.IdHabitacion, fechaInicio, fechaFin);
+        Console.WriteLine($"La habitacion {habitacion.IdHabitacion} {(disponible ? "está" : "no está")} disponible entre {fechaInicio:d} y {fechaFin:d}.");
 
         if (!disponible)
-        {
             return;
-        }
 
         var holdId = await Connector.CrearPrerreservaAsync(
-            soapCrearPreReservaUri,
+            crearPreReservaUri,
             habitacion.IdHabitacion,
             fechaInicio,
             fechaFin,
@@ -61,11 +66,11 @@ internal static class ConnectionTest
             precioActual: habitacion.PrecioActual);
         Console.WriteLine($"Hold creado: {holdId}");
 
-        var usuarioId = await Connector.CrearUsuarioExternoAsync(soapCrearUsuarioExternoUri, "jperez123456@travelio.com", "Juan", "Pérez");
+        var usuarioId = await Connector.CrearUsuarioExternoAsync(crearUsuarioExternoUri, "j12perez@correo.com", "Juan", "Pérez");
         Console.WriteLine($"Usuario externo creado: {usuarioId}");
 
         var reservaId = await Connector.CrearReservaAsync(
-            soapReservarHabitacionUri,
+            reservarHabitacionUri,
             habitacion.IdHabitacion,
             holdId,
             "Juan",
@@ -75,11 +80,11 @@ internal static class ConnectionTest
             "1234567890",
             fechaInicio,
             fechaFin,
-            numeroHuespedes: habitacion.Capacidad);
+            habitacion.Capacidad);
         Console.WriteLine($"Reserva creada con Id: {reservaId}");
 
         var facturaUrl = await Connector.EmitirFacturaAsync(
-            soapEmitirFacturaUri,
+            emitirFacturaUri,
             reservaId,
             "Juan",
             "Pérez",
@@ -88,7 +93,7 @@ internal static class ConnectionTest
             "juan@correo.com");
         Console.WriteLine($"Factura emitida: {facturaUrl}");
 
-        var datosReserva = await Connector.ObtenerDatosReservaAsync(soapBuscarDatosReservaUri, reservaId);
+        var datosReserva = await Connector.ObtenerDatosReservaAsync(buscarDatosReservaUri, reservaId);
         Console.WriteLine($"Datos de la reserva: {datosReserva}");
     }
 }
