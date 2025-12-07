@@ -21,7 +21,7 @@ public static class Connector
         }
 
         var soapClient = new PaquetesServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
-        var response = await soapClient.BuscarPaquetesAsync(ciudad, fechaInicio?.ToString("yyyy-MM-dd"), tipoActividad, precioMax);
+        var response = await soapClient.BuscarPaquetesAsync(ciudad, fechaInicio?.ToString(), tipoActividad, precioMax);
         var paquetes = response?.BuscarPaquetesResult ?? [];
 
         return Array.ConvertAll(paquetes, dto => new Paquete(
@@ -45,7 +45,7 @@ public static class Connector
         }
 
         var soapClient = new PaquetesServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
-        return await soapClient.ValidarDisponibilidadAsync(idPaquete, fechaInicio.ToString("yyyy-MM-dd"), personas);
+        return await soapClient.ValidarDisponibilidadAsync(idPaquete, fechaInicio.ToString(), personas);
     }
 
     public static async Task<(string holdId, DateTime expira)> CrearHoldAsync(
@@ -62,7 +62,7 @@ public static class Connector
         }
 
         var soapClient = new PaquetesServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
-        var response = await soapClient.CrearHoldAsync(idPaquete, bookingUserId, fechaInicio.ToString("yyyy-MM-dd"), personas, duracionSegundos);
+        var response = await soapClient.CrearHoldAsync(idPaquete, bookingUserId, fechaInicio.ToString(), personas, duracionSegundos);
         return (response.HoldId, response.Expira);
     }
 
