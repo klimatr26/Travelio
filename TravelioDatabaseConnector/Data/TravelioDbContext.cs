@@ -330,15 +330,14 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
 
             // Restaurantes
             // Allisson Barros
-            // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 401,
-            //    Nombre = "Cangrejitos Felices",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "CR-3001",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 401,
+                Nombre = "Cangrejitos Felices",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "218",
+                Activo = true
+            },
 
             // Nick Romero
             new Servicio
@@ -362,48 +361,44 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             //},
 
             // Melany Acosta
-            // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 404,
-            //    Nombre = "Sánctum",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "216",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 404,
+                Nombre = "Sánctum",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "215",
+                Activo = true
+            },
 
             // Emilia Lara
-            // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 405,
-            //    Nombre = "Sabor Andino",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "216",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 405,
+                Nombre = "Sabor Andino",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "210",
+                Activo = true
+            },
 
             // Jordy Morales
-            // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 406,
-            //    Nombre = "Bar Sinson",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "216",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 406,
+                Nombre = "Bar Sinson",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "167",
+                Activo = true
+            },
 
             // Esteban Singo
-            // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 407,
-            //    Nombre = "7 Mares",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "216",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 407,
+                Nombre = "7 Mares",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "171",
+                Activo = true
+            },
         };
 
         modelBuilder.Entity<Servicio>().HasData(servicios);
@@ -872,6 +867,217 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearReservaEndpoint = "/integracion/autos/book",
                 GenerarFacturaEndpoint = "/integracion/autos/invoices",
                 ObtenerReservaEndpoint = "/prereserva/auto"
+            },
+
+            // Mesas
+            // Allison Barros
+            new DetalleServicio
+            {
+                Id = 401,
+                ServicioId = 401,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://cangrejitosfelicessoa.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 901,
+                ServicioId = 401,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://cangrejitosfelices.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas" // Estas (API de Mesas) se obtienen añadiendo el número consultado al final el endpoint, como http://cangrejitosfelices.runasp.net/api/v1/integracion/restaurantes/reservas/9
+            },
+
+            // Nick Romero
+            new DetalleServicio
+            {
+                Id = 402,
+                ServicioId = 402,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://dragonrojosoap.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 902,
+                ServicioId = 402,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://dragonrojobus.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
+            },
+
+            // Arturo Albuja
+            //new DetalleServicio
+            //{
+            //    Id = 403,
+            //    ServicioId = 403,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://cafesanjuansoap.runasp.net",
+            //    ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/BusReservaWS.asmx?WSDL",
+            //    CrearReservaEndpoint = "/BusReservaWS.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/BusFacturaWS.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/BusReservaWS.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 903,
+            //    ServicioId = 403,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://cafesanjuan.runasp.net/api/integracion/restaurantes",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reservas"
+            //},
+
+            // Melany Acosta
+            new DetalleServicio
+            {
+                Id = 404,
+                ServicioId = 404,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://sanctum-soap.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?wsdl",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?wsdl",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?wsdl",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?wsdl",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?wsdl"
+            },
+            new DetalleServicio
+            {
+                Id = 904,
+                ServicioId = 404,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://sanctum.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
+            },
+
+            // Emilia Lara
+            new DetalleServicio
+            {
+                Id = 405,
+                ServicioId = 405,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://saborandinosoa.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?wsdl",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?wsdl",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?wsdl",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?wsdl",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?wsdl"
+            },
+            new DetalleServicio
+            {
+                Id = 905,
+                ServicioId = 405,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://saborandino.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
+            },
+
+            // Jordy Morales
+            new DetalleServicio
+            {
+                Id = 406,
+                ServicioId = 406,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://ingtegracion-bar-sinson-soap.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?wsdl",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?wsdl",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?wsdl",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?wsdl",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?wsdl"
+            },
+            new DetalleServicio
+            {
+                Id = 906,
+                ServicioId = 406,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://ingtegracion-bar-sinson.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
+            },
+
+            // Esteban Singo
+            new DetalleServicio
+            {
+                Id = 407,
+                ServicioId = 407,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://7maresbacksoap.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?wsdl",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?wsdl",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?wsdl",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?wsdl",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?wsdl",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?wsdl"
+            },
+            new DetalleServicio
+            {
+                Id = 907,
+                ServicioId = 407,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://7maresback.runasp.net/api/v1/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
             },
         };
 
