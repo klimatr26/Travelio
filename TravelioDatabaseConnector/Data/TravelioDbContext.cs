@@ -132,14 +132,41 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
         var servicios = new[]
         {
             // Aerolínea
+            // Isaac Yánez
             new Servicio
             {
                 Id = 1,
-                Nombre = "Travelio Airlines",
+                Nombre = "SkyAndes",
                 TipoServicio = TipoServicio.Aerolinea,
-                NumeroCuenta = "AL-1001",
+                NumeroCuenta = "265",
                 Activo = true
             },
+
+            // Henry Cruz
+            new Servicio
+            {
+                Id = 2,
+                Nombre = "Astrawings",
+                TipoServicio = TipoServicio.Aerolinea,
+                NumeroCuenta = "192",
+                Activo = true
+            },
+
+            // Marlon Tomalá
+            new Servicio
+            {
+                Id = 3,
+                Nombre = "SkaywardAir",
+                TipoServicio = TipoServicio.Aerolinea,
+                NumeroCuenta = "247",
+                Activo = true
+            },
+
+            // Justin Baño
+            // ???
+
+            // Michael Barriga
+            // ???
 
             // Habitaciones
             // Pierre Montenegro
@@ -388,7 +415,102 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
         {
             // Aerolínea
 
+            // Isaac Yánez
+            new DetalleServicio
+            {
+                Id = 1,
+                ServicioId = 1,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://withflysoaint.runasp.net/IntegracionService.asmx?wsdl",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            new DetalleServicio
+            {
+                Id = 501,
+                ServicioId = 1,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://skyandes.runasp.net/api/integracion/aerolinea",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
 
+            // Henry Cruz
+            new DetalleServicio
+            {
+                Id = 2,
+                ServicioId = 2,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://astrawingss.runasp.net/IntegracionService.asmx?wsdl",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            new DetalleServicio
+            {
+                Id = 502,
+                ServicioId = 2,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://astrawings.runasp.net/api/v1/integracion/aerolinea",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // Marlon Tomalá
+            new DetalleServicio
+            {
+                Id = 3,
+                ServicioId = 3,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://skaywardairsoap.runasp.net/WS_Integracion.asmx?wsdl",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            // No hay enlaces de REST
+            //new DetalleServicio
+            //{
+            //    Id = 503,
+            //    ServicioId = 3,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://astrawings.runasp.net/api/v1/integracion/aerolinea",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Justin Baño
+            // ???
+
+            // Michael Barriga
+            // ???
 
             // Habitaciones
             // Pierre Montenegro
