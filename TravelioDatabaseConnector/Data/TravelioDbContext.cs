@@ -136,7 +136,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             new Servicio
             {
                 Id = 1,
-                Nombre = "SkyAndes",
+                Nombre = "Withfly",
                 TipoServicio = TipoServicio.Aerolinea,
                 NumeroCuenta = "265",
                 Activo = true
@@ -298,7 +298,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Id = 301,
                 Nombre = "World Agency",
                 TipoServicio = TipoServicio.PaquetesTuristicos,
-                NumeroCuenta = "200",
+                NumeroCuenta = "198",
                 Activo = true
             },
 
