@@ -173,14 +173,14 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Michael Barriga
-            // No hay número de cuenta
+            // Enlaces incorrectos REST
             new Servicio
             {
                 Id = 5,
                 Nombre = "Caribbean Skyways",
                 TipoServicio = TipoServicio.Aerolinea,
-                NumeroCuenta = "1",
-                Activo = false
+                NumeroCuenta = "244",
+                Activo = true
             },
 
             // Habitaciones
@@ -266,14 +266,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Joel Tupiza
-            // Falta nombre y número de cuenta
             new Servicio
             {
                 Id = 203,
-                Nombre = "Joel Tupiza",
+                Nombre = "EasyCar",
                 TipoServicio = TipoServicio.RentaVehiculos,
-                NumeroCuenta = "1",
-                Activo = false
+                NumeroCuenta = "221",
+                Activo = true
             },
 
             // Mateo Sánchez
@@ -485,7 +484,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Id = 3,
                 ServicioId = 3,
                 TipoProtocolo = TipoProtocolo.Soap,
-                UriBase = "http://skaywardairsoap.runasp.net/WS_Integracion.asmx?wsdl",
+                UriBase = "http://skaywardairsoap.runasp.net/IntegracionService.asmx?WSDL",
                 ObtenerProductosEndpoint = "",
                 RegistrarClienteEndpoint = "",
                 ConfirmarProductoEndpoint = "",
@@ -515,7 +514,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Id = 4,
                 ServicioId = 4,
                 TipoProtocolo = TipoProtocolo.Soap,
-                UriBase = "https://skyandesintegracion.runasp.net/WS_Integracion.asmx?WSDL",
+                UriBase = "https://skyandesairlines-ws.runasp.net/SkyAndes_Integracion/WS_Integracion.asmx?WSDL",
                 ObtenerProductosEndpoint = "",
                 RegistrarClienteEndpoint = "",
                 ConfirmarProductoEndpoint = "",
