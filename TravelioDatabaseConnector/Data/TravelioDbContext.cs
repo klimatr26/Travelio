@@ -386,48 +386,371 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
     {
         var detalles = new[]
         {
+            // Aerolínea
+
+
+
+            // Habitaciones
+            // Pierre Montenegro
+            //new DetalleServicio
+            //{
+            //    Id = 101,
+            //    ServicioId = 101,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://hotelecampestresoap.runasp.net",
+            //    ObtenerProductosEndpoint = "/BuscarHabitacionesWS.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+            //    CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/BuscarDatosReservaWS.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 601,
+            //    ServicioId = 101,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://hotelcampestrerest.runasp.net/api/v1/hoteles",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Daniel Carranza
             new DetalleServicio
             {
-                Id = 1,
-                ServicioId = 1,
-                TipoProtocolo = TipoProtocolo.Rest,
-                UriBase = "https://api.travelio-air.example.com/v1",
-                ObtenerProductosEndpoint = "/flights",
-                RegistrarClienteEndpoint = "/customers",
-                ConfirmarProductoEndpoint = "/flights/confirm",
-                CrearPrerreservaEndpoint = "/flights/prereservations",
-                CrearReservaEndpoint = "/flights/reservations",
-                GenerarFacturaEndpoint = "/billing/invoices",
-                ObtenerReservaEndpoint = "/flights/reservations/{codigo}"
-            },
-            new DetalleServicio
-            {
-                Id = 2,
-                ServicioId = 2,
+                Id = 102,
+                ServicioId = 102,
                 TipoProtocolo = TipoProtocolo.Soap,
-                UriBase = "https://soap.travelio-hotels.example.com",
-                ObtenerProductosEndpoint = "/Rooms/GetAvailable",
-                RegistrarClienteEndpoint = "/Guests/Register",
-                ConfirmarProductoEndpoint = "/Rooms/ConfirmAvailability",
-                CrearPrerreservaEndpoint = "/Bookings/CreatePrebooking",
-                CrearReservaEndpoint = "/Bookings/CreateReservation",
-                GenerarFacturaEndpoint = "/Billing/CreateInvoice",
-                ObtenerReservaEndpoint = "/Bookings/GetReservation"
+                UriBase = "http://allpahousenyc.runasp.net",
+                ObtenerProductosEndpoint = "/BuscarHabitacionesWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/BuscarDatosReservaWS.asmx?WSDL"
             },
             new DetalleServicio
             {
-                Id = 3,
-                ServicioId = 3,
+                Id = 602,
+                ServicioId = 102,
                 TipoProtocolo = TipoProtocolo.Rest,
-                UriBase = "https://api.travelio-cars.example.com",
-                ObtenerProductosEndpoint = "/vehicles",
-                RegistrarClienteEndpoint = "/clients",
-                ConfirmarProductoEndpoint = "/vehicles/availability",
-                CrearPrerreservaEndpoint = "/vehicles/prereservations",
-                CrearReservaEndpoint = "/vehicles/reservations",
+                UriBase = "http://restallpahousenyc.runasp.net/api/v1/hoteles",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/vehicles/reservations/{codigo}"
-            }
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // Carlos Constante
+            new DetalleServicio
+            {
+                Id = 103,
+                ServicioId = 103,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "https://intehoca-eheqd8h6bvdyfqfy.canadacentral-01.azurewebsites.net",
+                ObtenerProductosEndpoint = "/buscarHabitacionesWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/buscarDatosReservaWS.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 603,
+                ServicioId = 103,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "https://reca.azurewebsites.net/api/v1/hoteles",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // David Ocampo
+            //new DetalleServicio
+            //{
+            //    Id = 104,
+            //    ServicioId = 104,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://soapbrisamar.runasp.net",
+            //    ObtenerProductosEndpoint = "/buscarHabitacionesWS.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+            //    CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/buscarDatosReservaWS.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 604,
+            //    ServicioId = 104,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://restbrisamar.runasp.net/api/v1/hoteles",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Alejandro Gómez
+            //new DetalleServicio
+            //{
+            //    Id = 105,
+            //    ServicioId = 105,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://hotelandinosoap.runasp.net",
+            //    ObtenerProductosEndpoint = "/BuscarHabitacionesWS.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+            //    CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/BuscarDatosReservaWS.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 605,
+            //    ServicioId = 105,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://restallpahousenyc.runasp.net/api/v1/hoteles",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Jossue Gallardo
+            new DetalleServicio
+            {
+                Id = 106,
+                ServicioId = 106,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://aureacuen.runasp.net",
+                ObtenerProductosEndpoint = "/buscarHabitacionesWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/CrearUsuarioExternoWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/ValidarDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/CrearPreReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/ReservarHabitacionWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/EmitirFacturaHotelWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/buscarDatosReservaWS.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 606,
+                ServicioId = 106,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://aureacuenrest.runasp.net/api/v1/hoteles",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // Autos
+            // Shirley Pilataxi
+            new DetalleServicio
+            {
+                Id = 201,
+                ServicioId = 201,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://cuencautosrenta.runasp.net",
+                ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+                RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+                CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+                GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+                ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 701,
+                ServicioId = 201,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://cuencautosinte.runasp.net/api/v1/integracion/autos",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // Marco Benítez
+            new DetalleServicio
+            {
+                Id = 202,
+                ServicioId = 202,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://integsoap.runasp.net",
+                ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+                RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+                CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+                GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+                ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 702,
+                ServicioId = 202,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://restintegracin.runasp.net/api/v1/integracion/autos",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
+
+            // Joel Tupiza
+            //new DetalleServicio
+            //{
+            //    Id = 203,
+            //    ServicioId = 203,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://cuencautosrenta.runasp.net",
+            //    ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+            //    CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 703,
+            //    ServicioId = 203,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://cuencautosinte.runasp.net/api/integracion/autos",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Mateo Sánchez
+            //new DetalleServicio
+            //{
+            //    Id = 204,
+            //    ServicioId = 204,
+            //    TipoProtocolo = TipoProtocolo.Soap,
+            //    UriBase = "http://autocarrent.runasp.net",
+            //    ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+            //    RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+            //    ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+            //    CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+            //    CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+            //    GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+            //    ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            //},
+            //new DetalleServicio
+            //{
+            //    Id = 704,
+            //    ServicioId = 204,
+            //    TipoProtocolo = TipoProtocolo.Rest,
+            //    UriBase = "http://autocarent.runasp.net/api/v1/integracion/autos",
+            //    ObtenerProductosEndpoint = "/search",
+            //    RegistrarClienteEndpoint = "/usuarios/externo",
+            //    ConfirmarProductoEndpoint = "/availability",
+            //    CrearPrerreservaEndpoint = "/hold",
+            //    CrearReservaEndpoint = "/book",
+            //    GenerarFacturaEndpoint = "/invoices",
+            //    ObtenerReservaEndpoint = "/reserva"
+            //},
+
+            // Gabriel Naranjo
+            new DetalleServicio
+            {
+                Id = 205,
+                ServicioId = 205,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://autocarrent.runasp.net",
+                ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+                RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+                CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+                GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+                ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 705,
+                ServicioId = 205,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://restinte.runasp.net/api",
+                ObtenerProductosEndpoint = "/v2/integracion/autos/search",
+                RegistrarClienteEndpoint = "/v1/integracion/autos/usuarios/externo",
+                ConfirmarProductoEndpoint = "/v2/integracion/autos/availability",
+                CrearPrerreservaEndpoint = "/v1/integracion/autos/hold",
+                CrearReservaEndpoint = "/v1/integracion/autos/book",
+                GenerarFacturaEndpoint = "/v1/integracion/autos/invoices",
+                ObtenerReservaEndpoint = "/v2/prereserva/auto"
+            },
+
+            // Alex Vivanco
+            new DetalleServicio
+            {
+                Id = 206,
+                ServicioId = 206,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://autocarrent.runasp.net",
+                ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+                RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+                CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+                GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+                ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 706,
+                ServicioId = 206,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://urbandriveinterest.runasp.net/api/v1",
+                ObtenerProductosEndpoint = "/integracion/autos/search",
+                RegistrarClienteEndpoint = "/integracion/autos/usuarios/externo",
+                ConfirmarProductoEndpoint = "/integracion/autos/availability",
+                CrearPrerreservaEndpoint = "/integracion/autos/hold",
+                CrearReservaEndpoint = "/integracion/autos/book",
+                GenerarFacturaEndpoint = "/integracion/autos/invoices",
+                ObtenerReservaEndpoint = "/prereserva/auto"
+            },
         };
 
         modelBuilder.Entity<DetalleServicio>().HasData(detalles);
