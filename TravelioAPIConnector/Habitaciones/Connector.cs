@@ -148,7 +148,7 @@ public static class Connector
             var datos = await BookedRoomInfo.GetBookedRoomInfoAsync(uri, idReserva);
             return new Reserva(
                 datos.idReserva,
-                (decimal)datos.costoTotal,
+                datos.costoTotal,
                 datos.fechaRegistro,
                 datos.inicio,
                 datos.fin,
@@ -163,9 +163,9 @@ public static class Connector
                 datos.ciudad ?? string.Empty,
                 datos.pais ?? string.Empty,
                 datos.capacidadReserva,
-                (decimal)datos.costoCalculado,
+                datos.costoCalculado,
                 datos.descuento,
-                (decimal)datos.impuestos,
+                datos.impuestos,
                 datos.idHold ?? string.Empty,
                 datos.amenidades ?? string.Empty,
                 datos.imagenes?.Split('|') ?? Array.Empty<string>(),

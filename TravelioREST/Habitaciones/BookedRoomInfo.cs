@@ -9,7 +9,7 @@ namespace TravelioREST.Habitaciones;
 public class BookedRoomInfoResponse
 {
     public int idReserva { get; set; }
-    public float costoTotal { get; set; }
+    public decimal costoTotal { get; set; }
     public DateTime fechaRegistro { get; set; }
     public DateTime inicio { get; set; }
     public DateTime fin { get; set; }
@@ -24,9 +24,9 @@ public class BookedRoomInfoResponse
     public string ciudad { get; set; }
     public string pais { get; set; }
     public int capacidadReserva { get; set; }
-    public float costoCalculado { get; set; }
+    public decimal costoCalculado { get; set; }
     public int descuento { get; set; }
-    public float impuestos { get; set; }
+    public decimal impuestos { get; set; }
     public string idHold { get; set; }
     public string amenidades { get; set; }
     public string imagenes { get; set; }

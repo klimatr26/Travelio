@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Mesas\" />
-    <Folder Include="Paquetes\" />
   </ItemGroup>
 
   <ItemGroup>
