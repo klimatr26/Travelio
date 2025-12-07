@@ -14,10 +14,10 @@ internal sealed class TransaccionRequest
 
 public static class TransferirClass
 {
-    const int cuentaOrigen = 242;
+    public const int cuentaDefaultTravelio = 242;
     const string apiUrl = "http://mibanca.runasp.net/api/Transacciones";
 
-    public static async Task<bool> RealizarTransferenciaAsync(int cuentaDestino, decimal monto, int cuentaOrigen = cuentaOrigen, string apiUrl = apiUrl)
+    public static async Task<bool> RealizarTransferenciaAsync(int cuentaDestino, decimal monto, int cuentaOrigen = cuentaDefaultTravelio, string apiUrl = apiUrl)
     {
         var client = Bank.cachedClient;
         var request = new TransaccionRequest
