@@ -565,7 +565,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Id = 302,
                 Nombre = "Cuenca Travel",
                 TipoServicio = TipoServicio.PaquetesTuristicos,
-                NumeroCuenta = "229",
+                NumeroCuenta = "299",
                 Activo = true
             },
 
@@ -1307,13 +1307,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = ""
             },
 
-            // Enlaces incorrectos
             new DetalleServicio
             {
                 Id = 802,
                 ServicioId = 302,
                 TipoProtocolo = TipoProtocolo.Rest,
-                UriBase = "https://worldagencybk.runasp.net/api/v2/paquetes",
+                UriBase = "https://rest-back-xnjm.onrender.com/api/v2/paquetes",
                 ObtenerProductosEndpoint = "",
                 RegistrarClienteEndpoint = "/usuarios/externo",
                 ConfirmarProductoEndpoint = "/availability",
@@ -1342,13 +1341,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = ""
             },
 
-            // Enlaces incorrectos
             new DetalleServicio
             {
                 Id = 803,
                 ServicioId = 303,
                 TipoProtocolo = TipoProtocolo.Rest,
-                UriBase = "https://worldagencybk.runasp.net/api/v2/paquetes",
+                UriBase = "http://paquetesturisticosweb-bk.runasp.net/api/v2/paquetes",
                 ObtenerProductosEndpoint = "",
                 RegistrarClienteEndpoint = "/usuarios/externo",
                 ConfirmarProductoEndpoint = "/availability",

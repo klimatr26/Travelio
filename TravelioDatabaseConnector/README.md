@@ -62,6 +62,13 @@ erDiagram
         int ServicioId
         string TipoProtocolo
         string UriBase
+        string ObtenerProductosEndpoint
+        string RegistrarClienteEndpoint
+        string ConfirmarProductoEndpoint
+        string CrearPrerreservaEndpoint
+        string CrearReservaEndpoint
+        string GenerarFacturaEndpoint
+        string ObtenerReservaEndpoint
     }
     Reserva {
         int Id
