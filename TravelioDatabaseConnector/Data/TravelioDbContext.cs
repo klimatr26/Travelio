@@ -163,10 +163,25 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Justin Baño
-            // ???
+            new Servicio
+            {
+                Id = 4,
+                Nombre = "SkyAndes",
+                TipoServicio = TipoServicio.Aerolinea,
+                NumeroCuenta = "160",
+                Activo = true
+            },
 
             // Michael Barriga
-            // ???
+            // No hay número de cuenta
+            new Servicio
+            {
+                Id = 5,
+                Nombre = "Caribbean Skyways",
+                TipoServicio = TipoServicio.Aerolinea,
+                NumeroCuenta = "1",
+                Activo = false
+            },
 
             // Habitaciones
             // Pierre Montenegro
@@ -252,14 +267,14 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
 
             // Joel Tupiza
             // Falta nombre y número de cuenta
-            //new Servicio
-            //{
-            //    Id = 203,
-            //    Nombre = "???",
-            //    TipoServicio = TipoServicio.RentaVehiculos,
-            //    NumeroCuenta = "185",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 203,
+                Nombre = "Joel Tupiza",
+                TipoServicio = TipoServicio.RentaVehiculos,
+                NumeroCuenta = "1",
+                Activo = false
+            },
 
             // Mateo Sánchez
             new Servicio
@@ -303,18 +318,16 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Jordi Nogales
-            // No tiene nada de información
-            //new Servicio
-            //{
-            //    Id = 302,
-            //    Nombre = "World Agency",
-            //    TipoServicio = TipoServicio.PaquetesTuristicos,
-            //    NumeroCuenta = "200",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 302,
+                Nombre = "Cuenca Travel",
+                TipoServicio = TipoServicio.PaquetesTuristicos,
+                NumeroCuenta = "229",
+                Activo = true
+            },
 
             // Daniel Valenzuela
-            // Enlaces desactualizados
             new Servicio
             {
                 Id = 303,
@@ -347,14 +360,14 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
 
             // Arturo Albuja
             // No hay número de cuenta
-            //new Servicio
-            //{
-            //    Id = 403,
-            //    Nombre = "Café San Juan",
-            //    TipoServicio = TipoServicio.Restaurante,
-            //    NumeroCuenta = "216",
-            //    Activo = true
-            //},
+            new Servicio
+            {
+                Id = 403,
+                Nombre = "Café San Juan",
+                TipoServicio = TipoServicio.Restaurante,
+                NumeroCuenta = "1",
+                Activo = false
+            },
 
             // Melany Acosta
             new Servicio
@@ -426,7 +439,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Id = 501,
                 ServicioId = 1,
                 TipoProtocolo = TipoProtocolo.Rest,
-                UriBase = "http://skyandes.runasp.net/api/integracion/aerolinea",
+                UriBase = "http://aerolineaintrest.runasp.net/api/v1/integracion/aerolinea",
                 ObtenerProductosEndpoint = "/search",
                 RegistrarClienteEndpoint = "/usuarios/externo",
                 ConfirmarProductoEndpoint = "/availability",
@@ -481,27 +494,81 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 GenerarFacturaEndpoint = "",
                 ObtenerReservaEndpoint = ""
             },
-            // No hay enlaces de REST
-            //new DetalleServicio
-            //{
-            //    Id = 503,
-            //    ServicioId = 3,
-            //    TipoProtocolo = TipoProtocolo.Rest,
-            //    UriBase = "http://astrawings.runasp.net/api/v1/integracion/aerolinea",
-            //    ObtenerProductosEndpoint = "/search",
-            //    RegistrarClienteEndpoint = "/usuarios/externo",
-            //    ConfirmarProductoEndpoint = "/availability",
-            //    CrearPrerreservaEndpoint = "/hold",
-            //    CrearReservaEndpoint = "/book",
-            //    GenerarFacturaEndpoint = "/invoices",
-            //    ObtenerReservaEndpoint = "/reserva"
-            //},
+            new DetalleServicio
+            {
+                Id = 503,
+                ServicioId = 3,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://skaywardair.runasp.net/api/v1/integracion/aerolinea",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
 
             // Justin Baño
-            // ???
+            new DetalleServicio
+            {
+                Id = 4,
+                ServicioId = 4,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "https://skyandesintegracion.runasp.net/WS_Integracion.asmx?WSDL",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            new DetalleServicio
+            {
+                Id = 504,
+                ServicioId = 4,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://skyandes.runasp.net/api/integracion/aerolinea",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
 
             // Michael Barriga
-            // ???
+            new DetalleServicio
+            {
+                Id = 5,
+                ServicioId = 5,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://caribbeanskyways.runasp.net/WS_Integracion.asmx?WSDL",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            // Enlaces incorrectos
+            new DetalleServicio
+            {
+                Id = 505,
+                ServicioId = 5,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://skyandes.runasp.net/api/integracion/aerolinea",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
 
             // Habitaciones
             // Pierre Montenegro
@@ -746,34 +813,34 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Joel Tupiza
-            //new DetalleServicio
-            //{
-            //    Id = 203,
-            //    ServicioId = 203,
-            //    TipoProtocolo = TipoProtocolo.Soap,
-            //    UriBase = "http://cuencautosrenta.runasp.net",
-            //    ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
-            //    RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
-            //    ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
-            //    CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
-            //    CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
-            //    GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
-            //    ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
-            //},
-            //new DetalleServicio
-            //{
-            //    Id = 703,
-            //    ServicioId = 203,
-            //    TipoProtocolo = TipoProtocolo.Rest,
-            //    UriBase = "http://cuencautosinte.runasp.net/api/integracion/autos",
-            //    ObtenerProductosEndpoint = "/search",
-            //    RegistrarClienteEndpoint = "/usuarios/externo",
-            //    ConfirmarProductoEndpoint = "/availability",
-            //    CrearPrerreservaEndpoint = "/hold",
-            //    CrearReservaEndpoint = "/book",
-            //    GenerarFacturaEndpoint = "/invoices",
-            //    ObtenerReservaEndpoint = "/reserva"
-            //},
+            new DetalleServicio
+            {
+                Id = 203,
+                ServicioId = 203,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://gestintsoa.runasp.net",
+                ObtenerProductosEndpoint = "/WS_BuscarAutos.asmx?WSDL",
+                RegistrarClienteEndpoint = "/WS_UsuarioExterno.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/WS_DisponibilidadAutos.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/WS_PreReserva.asmx?WSDL",
+                CrearReservaEndpoint = "/WS_ReservarAutos.asmx?WSDL",
+                GenerarFacturaEndpoint = "/WS_FacturaIntegracion.asmx?WSDL",
+                ObtenerReservaEndpoint = "/WS_BuscarDatos.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 703,
+                ServicioId = 203,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://integracionrest.runasp.net/api/v1/integracion/autos",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reserva"
+            },
 
             // Mateo Sánchez
             new DetalleServicio
@@ -865,6 +932,99 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/prereserva/auto"
             },
 
+            // Paquetes
+            // Christian Coba
+            new DetalleServicio
+            {
+                Id = 301,
+                ServicioId = 301,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "https://worldagencysoa.runasp.net/PaquetesService.asmx?WSDL",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            new DetalleServicio
+            {
+                Id = 801,
+                ServicioId = 301,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "https://worldagencybk.runasp.net/api/v2/paquetes",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/pre-reserva",
+                CrearReservaEndpoint = "/reserva",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/{id}/reserva" // Estas (API de Paquetes turísticos) se obtienen reemplazando {id} por el ID de reserva en el enlace, como https://worldagencybk.runasp.net/api/v2/paquetes/1/reserva
+            },
+
+            // Jordi Nogales
+            new DetalleServicio
+            {
+                Id = 302,
+                ServicioId = 302,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "https://backend-cuenca.onrender.com/WS_Integracion.asmx?wsdl",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            // Enlaces incorrectos
+            new DetalleServicio
+            {
+                Id = 802,
+                ServicioId = 302,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "https://worldagencybk.runasp.net/api/v2/paquetes",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/pre-reserva",
+                CrearReservaEndpoint = "/reserva",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/{id}/reserva"
+            },
+
+            // Daniel Valenzuela
+            new DetalleServicio
+            {
+                Id = 303,
+                ServicioId = 303,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://paquetesturisticosweb.runasp.net/Soap/PaquetesService.asmx?WSDL",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "",
+                ConfirmarProductoEndpoint = "",
+                CrearPrerreservaEndpoint = "",
+                CrearReservaEndpoint = "",
+                GenerarFacturaEndpoint = "",
+                ObtenerReservaEndpoint = ""
+            },
+            // Enlaces incorrectos
+            new DetalleServicio
+            {
+                Id = 803,
+                ServicioId = 303,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "https://worldagencybk.runasp.net/api/v2/paquetes",
+                ObtenerProductosEndpoint = "",
+                RegistrarClienteEndpoint = "/usuarios/externo",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/pre-reserva",
+                CrearReservaEndpoint = "/reserva",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/{id}/reserva"
+            },
+
             // Mesas
             // Allison Barros
             new DetalleServicio
@@ -927,34 +1087,34 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
             },
 
             // Arturo Albuja
-            //new DetalleServicio
-            //{
-            //    Id = 403,
-            //    ServicioId = 403,
-            //    TipoProtocolo = TipoProtocolo.Soap,
-            //    UriBase = "http://cafesanjuansoap.runasp.net",
-            //    ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?WSDL",
-            //    RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?WSDL",
-            //    ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?WSDL",
-            //    CrearPrerreservaEndpoint = "/BusReservaWS.asmx?WSDL",
-            //    CrearReservaEndpoint = "/BusReservaWS.asmx?WSDL",
-            //    GenerarFacturaEndpoint = "/BusFacturaWS.asmx?WSDL",
-            //    ObtenerReservaEndpoint = "/BusReservaWS.asmx?WSDL"
-            //},
-            //new DetalleServicio
-            //{
-            //    Id = 903,
-            //    ServicioId = 403,
-            //    TipoProtocolo = TipoProtocolo.Rest,
-            //    UriBase = "http://cafesanjuan.runasp.net/api/integracion/restaurantes",
-            //    ObtenerProductosEndpoint = "/search",
-            //    RegistrarClienteEndpoint = "/usuarios",
-            //    ConfirmarProductoEndpoint = "/availability",
-            //    CrearPrerreservaEndpoint = "/hold",
-            //    CrearReservaEndpoint = "/book",
-            //    GenerarFacturaEndpoint = "/invoices",
-            //    ObtenerReservaEndpoint = "/reservas"
-            //},
+            new DetalleServicio
+            {
+                Id = 403,
+                ServicioId = 403,
+                TipoProtocolo = TipoProtocolo.Soap,
+                UriBase = "http://cafesanjuansoap.runasp.net",
+                ObtenerProductosEndpoint = "/BusBusquedaWS.asmx?WSDL",
+                RegistrarClienteEndpoint = "/BusUsuarioWS.asmx?WSDL",
+                ConfirmarProductoEndpoint = "/BusDisponibilidadWS.asmx?WSDL",
+                CrearPrerreservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                CrearReservaEndpoint = "/BusReservaWS.asmx?WSDL",
+                GenerarFacturaEndpoint = "/BusFacturaWS.asmx?WSDL",
+                ObtenerReservaEndpoint = "/BusReservaWS.asmx?WSDL"
+            },
+            new DetalleServicio
+            {
+                Id = 903,
+                ServicioId = 403,
+                TipoProtocolo = TipoProtocolo.Rest,
+                UriBase = "http://cafesanjuan.runasp.net/api/integracion/restaurantes",
+                ObtenerProductosEndpoint = "/search",
+                RegistrarClienteEndpoint = "/usuarios",
+                ConfirmarProductoEndpoint = "/availability",
+                CrearPrerreservaEndpoint = "/hold",
+                CrearReservaEndpoint = "/book",
+                GenerarFacturaEndpoint = "/invoices",
+                ObtenerReservaEndpoint = "/reservas"
+            },
 
             // Melany Acosta
             new DetalleServicio
