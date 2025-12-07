@@ -5,12 +5,16 @@ using System.Text;
 namespace TravelioAPIConnector.Aerolinea;
 
 public record struct Reserva(
+    string IdReserva,
     string Origen,
     string Destino,
-    string CorreoAsignado,
-    DateTime FechaSalida,
+    string Correo,
+    DateTime Fecha,
     string TipoCabina,
     (string nombre, string apellido, string tipoIdentificacion, string identificacion)[] Pasajeros,
+    string NombreAerolinea,
+    int AsientosReservados,
     decimal ValorPagado,
-    string UriFactura
+    string UriFactura,
+    string Estado
     );

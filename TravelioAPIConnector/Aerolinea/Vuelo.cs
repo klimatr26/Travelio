@@ -5,16 +5,16 @@ using System.Text;
 namespace TravelioAPIConnector.Aerolinea;
 
 public record struct Vuelo(
-    int IdVuelo,
+    string IdVuelo,
     string Origen,
     string Destino,
-    DateTime FechaSalida,
-    DateTime FechaLlegada,
+    DateTime Fecha,
     string TipoCabina,
     string NombreAerolinea,
+    int CapacidadPasajeros,
+    int CapacidadActual,
     decimal PrecioNormal,
     decimal PrecioActual,
-    decimal DescuentoPorcentaje,
-    int CapacidadDisponible
+    decimal DescuentoPorcentaje
     );
     

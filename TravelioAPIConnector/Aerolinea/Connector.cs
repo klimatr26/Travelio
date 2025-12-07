@@ -1,323 +1,183 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.ServiceModel;
-using System.Text;
-using System.Web;
 using TravelioSOAP.Aerolinea;
-using TravelioREST.Aerolinea;
 using static TravelioAPIConnector.Global;
-using System.Runtime.InteropServices;
 
 namespace TravelioAPIConnector.Aerolinea;
 
-#pragma warning disable CS0162 // Se detectó código inaccesible
+#pragma warning disable CS0162
 public static class Connector
 {
     public static async Task<Vuelo[]> GetVuelosAsync(
         string uri,
-        string? origin = null,
-        string? destination = null,
-        DateTime? dateFrom = null,
-        string? cabin = null,
-        int? passengers = null,
-        decimal? priceMin = null,
-        decimal? priceMax = null)
+        string? origen = null,
+        string? destino = null,
+        DateTime? fechaDespegue = null,
+        DateTime? fechaLlegada = null,
+        string? tipoCabina = null,
+        int? pasajeros = null,
+        decimal? precioMin = null,
+        decimal? precioMax = null)
     {
         if (IsREST)
         {
-            var uriBuilder = new UriBuilder(uri);
-
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-
-            if (origin is not null)
-                query["origin"] = origin;
-
-            if (destination is not null)
-                query["destination"] = destination;
-
-            if (dateFrom is not null)
-                query["dateFrom"] = dateFrom.ToString();
-
-            if (cabin is not null)
-                query["cabin"] = cabin;
-
-            if (passengers is not null)
-                query["passengers"] = passengers.ToString();
-
-            if (priceMin is not null)
-                query["priceMin"] = priceMin.ToString();
-
-            if (priceMax is not null)
-                query["priceMax"] = priceMin.ToString();
-
-            uriBuilder.Query = query.ToString();
-
-            var vuelos = await VuelosGetter.GetVuelosAsync(uriBuilder.ToString());
-
-            if (vuelos is not null)
-            {
-                var vuelosResult = new Vuelo[vuelos.Length];
-                for (int i = 0; i < vuelos.Length; i++)
-                {
-                    var v = vuelos[i];
-                    vuelosResult[i] = new Vuelo
-                    {
-                        IdVuelo = v.IdVuelo,
-                        Origen = v.Origen,
-                        Destino = v.Destino,
-                        FechaSalida = v.FechaSalida,
-                        FechaLlegada = v.FechaLlegada,
-                        TipoCabina = v.TipoCabina,
-                        NombreAerolinea = v.NombreAerolinea,
-                        PrecioNormal = v.PrecioNormal,
-                        PrecioActual = v.PrecioActual,
-                        DescuentoPorcentaje = (1.0m - v.PrecioActual / v.PrecioNormal) * 100.0m,
-                        CapacidadDisponible = v.CapacidadDisponible
-                    };
-                }
-                return vuelosResult;
-            }
-            return [];
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
-        {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var vueloSoap = await soapClient!.buscarVuelosAsync(origin, destination, dateFrom, cabin,
-                                                               passengers, priceMin, priceMax, null);
-            var vuelosResult = new Vuelo[vueloSoap.Body.buscarVuelosResult.Length];
-            for (int i = 0; i < vueloSoap.Body.buscarVuelosResult.Length; i++)
-            {
-                var v = vueloSoap.Body.buscarVuelosResult[i];
-                vuelosResult[i] = new Vuelo
-                {
-                    IdVuelo = v.FlightId,
-                    Origen = v.OriginName,
-                    Destino = v.DestinationName,
-                    FechaSalida = v.DepartureTime,
-                    FechaLlegada = v.ArrivalTime,
-                    TipoCabina = v.CabinClass,
-                    NombreAerolinea = v.Airline,
-                    PrecioNormal = v.Price,
-                    PrecioActual = v.Price,
-                    DescuentoPorcentaje = 0.0m,
-                    CapacidadDisponible = v.SeatsAvailable
-                };
-            }
-            return vuelosResult;
-        }
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        var response = await client.buscarVuelosAsync(origen, destino, fechaDespegue, fechaLlegada, tipoCabina, pasajeros, precioMin, precioMax);
+        var vuelos = response?.buscarVuelosResult ?? [];
+
+        return Array.ConvertAll(vuelos, static v => new Vuelo(
+            v.IdVuelo ?? string.Empty,
+            v.Origen ?? string.Empty,
+            v.Destino ?? string.Empty,
+            v.Fecha,
+            v.TipoCabina ?? string.Empty,
+            v.NombreAerolinea ?? string.Empty,
+            v.CapacidadPasajeros,
+            v.CapacidadActual,
+            v.PrecioNormal,
+            v.PrecioActual,
+            v.PrecioNormal == 0 ? 0 : (1 - (v.PrecioActual / v.PrecioNormal)) * 100m));
     }
 
-    public static async Task<bool> VerificarDisponibilidadVueloAsync(string uri, int idVuelo, int numPasajeros)
+    public static async Task<bool> VerificarDisponibilidadVueloAsync(string uri, string idVuelo, int pasajeros)
     {
         if (IsREST)
         {
-            return await VueloCheckAvailable.GetDisponibilidadAsync(uri, idVuelo, numPasajeros);
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
-        {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var disponibilidadResponse = await soapClient.validarDisponibilidadVueloAsync(idVuelo, numPasajeros);
-            return disponibilidadResponse;
-        }
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        return await client.validarDisponibilidadVueloAsync(idVuelo, pasajeros);
     }
 
-    public static async Task<(string holdId, DateTime holdExpiration)> CrearPrerreservaVueloAsync(
+    public static async Task<(string holdId, DateTime expira)> CrearPrerreservaVueloAsync(
         string uri,
-        int idVuelo,
-        int numPasajeros,
-        int duracionHold = 300)
-    {
-        string[] asientos = new string[numPasajeros];
-
-        for (int i = 0; i < numPasajeros; i++)
-        {
-            asientos[i] = $"E{i + 1}";
-        }
-
-        return await CrearPrerreservaVueloAsync(uri, idVuelo, asientos, duracionHold);
-    }
-
-    public static async Task<(string holdId, DateTime holdExpiration)> CrearPrerreservaVueloAsync(string uri,
-        int idVuelo,
-        string[] asientos,
+        string idVuelo,
+        (string nombre, string apellido, string tipoIdentificacion, string identificacion, DateTime fechaNacimiento)[] pasajeros,
         int duracionHold = 300)
     {
         if (IsREST)
         {
-            var prerreserva = await HoldCreator.CreateHoldAsync(uri, idVuelo, asientos, duracionHold);
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
+        }
 
-            return (prerreserva.holdId, DateTime.Parse(prerreserva.expiraEn));
-        }
-        else
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        var pasajerosDto = Array.ConvertAll(pasajeros, p => new PasajeroDTO_Integracion
         {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var strings = new ArrayOfString();
-            strings.AddRange(asientos);
-            var prereservaResponse = await soapClient!.crearPreReservaVueloAsync(idVuelo, strings, duracionHold);
-            return (prereservaResponse.Body.crearPreReservaVueloResult.HoldId, prereservaResponse.Body.crearPreReservaVueloResult.ExpiraEn);
-        }
+            Nombre = p.nombre,
+            Apellido = p.apellido,
+            TipoIdentificacion = p.tipoIdentificacion,
+            Identificacion = p.identificacion,
+            FechaNacimiento = p.fechaNacimiento
+        });
+
+        var response = await client.crearPreReservaVueloDetalleAsync(idVuelo, pasajerosDto, duracionHold);
+        var pre = response ?? throw new InvalidOperationException("No se pudo crear la prerreserva.");
+        return (pre.IdHold ?? string.Empty, pre.ExpiresAt);
     }
 
-    public static async Task<(int numeroReserva, string codigoReserva, string estado)> CrearReservaAsync(string uri,
-        int idVuelo,
-        string holdId,
+    public static async Task<(string idReserva, string codigoReserva, string mensaje)> CrearReservaAsync(
+        string uri,
+        string idVuelo,
+        string idHold,
         string correo,
-        (string nombre, string apellido, string tipoIdentificacion, string identificacion)[] pasajeros)
+        (string nombre, string apellido, string tipoIdentificacion, string identificacion, DateTime fechaNacimiento)[] pasajeros)
     {
         if (IsREST)
         {
-            var reservaResponse = await ReservationCreator.CreateReservationAsync(
-                uri,
-                idVuelo,
-                holdId,
-                correo,
-                pasajeros);
-
-            return (reservaResponse.IdReserva,
-                    reservaResponse.CodigoReserva,
-                    reservaResponse.Estado);
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+
+        var pasajerosDto = Array.ConvertAll(pasajeros, static p => new PasajeroDTO_Integracion
         {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
+            Nombre = p.nombre,
+            Apellido = p.apellido,
+            TipoIdentificacion = p.tipoIdentificacion,
+            Identificacion = p.identificacion,
+            FechaNacimiento = p.fechaNacimiento
+        });
 
-            var pasajerosDTO = new DTOPasajero[pasajeros.Length];
-            for (int i = 0; i < pasajeros.Length; i++)
-            {
-                var p = pasajeros[i];
-                pasajerosDTO[i] = new DTOPasajero
-                {
-                    Nombre = p.nombre,
-                    Apellido = p.apellido,
-                    TipoIdentificacion = p.tipoIdentificacion,
-                    Identificacion = p.identificacion
-                };
-            }
-
-            var reservaResponse = await soapClient.reservarVueloAsync(
-                idVuelo,
-                holdId,
-                pasajerosDTO,
-                correo);
-
-            return (reservaResponse.Body.reservarVueloResult.IdReserva,
-                    reservaResponse.Body.reservarVueloResult.CodigoReserva,
-                    reservaResponse.Body.reservarVueloResult.Estado);
-        }
+        var response = await client.reservarVueloDetalleAsync(idVuelo, idHold, pasajerosDto, correo);
+        var reserva = response ?? throw new InvalidOperationException("No se pudo crear la reserva.");
+        return (reserva.IdReserva ?? string.Empty, reserva.CodigoReserva ?? string.Empty, reserva.Message ?? string.Empty);
     }
 
-    public static async Task<string> GenerarFacturaAsync(string uri,
-        int reservaId,
+    public static async Task<string> GenerarFacturaAsync(
+        string uri,
+        string idReserva,
         decimal subtotal,
         decimal iva,
         decimal total,
-        (string nombre, string documento, string correo) cliente)
+        (string nombre, string tipoDocumento, string documento, string correo) cliente,
+        string idTransaccionBanco = "")
     {
         if (IsREST)
         {
-            var facturaResponse = await InvoiceGenerator.GenerateInvoiceAsync(
-                uri,
-                reservaId,
-                subtotal,
-                iva,
-                total,
-                cliente);
-            return facturaResponse.UriFactura;
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        var dtoCliente = new ClienteFacturaDTO
         {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var dtoFacturaRequest = new DTOFacturaRequest
-            {
-                ReservaId = reservaId,
-                Subtotal = subtotal,
-                Iva = iva,
-                Total = total,
-                Cliente = new DTOClienteFactura
-                {
-                    Nombre = cliente.nombre,
-                    Documento = cliente.documento,
-                    Correo = cliente.correo
-                }
-            };
-            var facturaResponse = await soapClient.emitirFacturaVueloAsync(dtoFacturaRequest);
-            return facturaResponse.Body.emitirFacturaVueloResult.UriFactura;
-        }
+            Nombre = cliente.nombre,
+            TipoDocumento = cliente.tipoDocumento,
+            Documento = cliente.documento,
+            Correo = cliente.correo
+        };
+
+        var response = await client.emitirFacturaVueloDetalleAsync(idReserva, subtotal, iva, total, dtoCliente, idTransaccionBanco);
+        return response?.UriFactura ?? throw new InvalidOperationException("No se pudo emitir la factura.");
     }
 
-    public static async Task<int> CrearClienteExternoAsync(string uri, string nombre, string apellido, string correo)
+    public static async Task<string> CrearClienteExternoAsync(
+        string uri,
+        string correo,
+        string nombre,
+        string apellido,
+        DateTime fechaNacimiento,
+        string tipoIdentificacion,
+        string identificacion)
     {
         if (IsREST)
         {
-            var cliente = await ExternalClientCreator.CreateExternalClientAsync(uri, nombre, apellido, correo);
-            return cliente.IdUsuario;
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
-        {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var dtoUsuario = new DTOUsuarioExterno
-            {
-                Nombre = nombre,
-                Apellido = apellido,
-                Correo = correo
-            };
-            var clienteResponse = await soapClient.crearUsuarioExternoAsync(dtoUsuario);
-            return clienteResponse.Body.crearUsuarioExternoResult.IdUsuario;
-        }
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        var response = await client.crearUsuarioExternoDetalleAsync(correo, nombre, apellido, fechaNacimiento, tipoIdentificacion, identificacion);
+        return response?.IdUsuario ?? throw new InvalidOperationException("No se pudo crear el usuario externo.");
     }
 
-    public static async Task<Reserva> GetDatosReservaAsync(string uri, int reservaId)
+    public static async Task<Reserva> GetDatosReservaAsync(string uri, string idReserva)
     {
         if (IsREST)
         {
-            var uriBuilder = new UriBuilder(uri);
-
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-
-            query["idReserva"] = reservaId.ToString();
-
-            uriBuilder.Query = query.ToString();
-
-            string result = await ReservationDataGetter.GetBookingDataContent(uriBuilder.ToString());
-
-            Reserva resultReserva = default;
-
-            return resultReserva with { Origen = result };
-
-            /*
-
-            var reservaResponse = await ReservationDataGetter.GetReservationDataAsync(uri, reservaId);
-            return new Reserva
-            {
-                Origen = reservaResponse.Origen,
-                Destino = reservaResponse.Destino,
-                CorreoAsignado = reservaResponse.CorreoAsignado,
-                FechaSalida = reservaResponse.FechaSalida,
-                TipoCabina = reservaResponse.TipoCabina,
-                Pasajeros = Array.ConvertAll(reservaResponse.Pasajeros, p => (p.Nombre, p.Apellido, p.TipoIdentificacion, p.Identificacion)),
-                ValorPagado = reservaResponse.ValorPagado,
-                UriFactura = reservaResponse.UriFactura
-            };
-            */
+            throw new NotImplementedException("La integracion REST de aerolinea debe reimplementarse.");
         }
-        else
-        {
-            var soapClient = new WS_IntegracionSoapClient(GetBinding(uri), new EndpointAddress(uri));
-            var reservaResponse = await soapClient.buscarDatosReservaAsync(reservaId);
-            var pasajeros = Array.ConvertAll(reservaResponse.Body.buscarDatosReservaResult.Pasajeros, p => (p.Nombre, p.Apellido, p.TipoIdentificacion, p.Identificacion));
-            return new Reserva
-            {
-                Origen = reservaResponse.Body.buscarDatosReservaResult.Origen,
-                Destino = reservaResponse.Body.buscarDatosReservaResult.Destino,
-                CorreoAsignado = "",
-                FechaSalida = reservaResponse.Body.buscarDatosReservaResult.Fecha,
-                TipoCabina = reservaResponse.Body.buscarDatosReservaResult.TipoCabina,
-                Pasajeros = pasajeros,
-                ValorPagado = 0,
-                UriFactura = ""
-            };
-        }
+
+        var client = new IntegracionServiceSoapClient(GetBinding(uri), new EndpointAddress(uri));
+        var datos = await client.buscarDatosReservaAsync(idReserva) ?? throw new InvalidOperationException("No se pudo obtener la reserva.");
+
+        var pasajeros = datos.Pasajeros ?? Array.Empty<PasajeroDTO_Integracion>();
+
+        return new Reserva(
+            datos.IdReserva ?? string.Empty,
+            datos.Origen ?? string.Empty,
+            datos.Destino ?? string.Empty,
+            datos.Correo ?? string.Empty,
+            datos.Fecha,
+            datos.TipoCabina ?? string.Empty,
+            Array.ConvertAll(pasajeros, p => (p.Nombre, p.Apellido, p.TipoIdentificacion, p.Identificacion)),
+            datos.NombreAerolinea ?? string.Empty,
+            datos.AsientosReservados,
+            datos.ValorPagado,
+            datos.UriFactura ?? string.Empty,
+            datos.Estado ?? string.Empty);
     }
 }
-
-#pragma warning restore CS0162 // Se detectó código inaccesible
+#pragma warning restore CS0162
