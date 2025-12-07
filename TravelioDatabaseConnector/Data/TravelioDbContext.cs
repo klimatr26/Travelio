@@ -1,17 +1,26 @@
 using Microsoft.EntityFrameworkCore;
 using TravelioDatabaseConnector.Enums;
 using TravelioDatabaseConnector.Models;
+using TravelioDatabaseConnector.Models.Carrito;
 
 namespace TravelioDatabaseConnector.Data;
 
 public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : DbContext(options)
 {
+
     public DbSet<Cliente> Clientes => Set<Cliente>();
     public DbSet<Servicio> Servicios => Set<Servicio>();
     public DbSet<Reserva> Reservas => Set<Reserva>();
     public DbSet<Compra> Compras => Set<Compra>();
     public DbSet<ReservaCompra> ReservasCompra => Set<ReservaCompra>();
     public DbSet<DetalleServicio> DetallesServicio => Set<DetalleServicio>();
+    public DbSet<CarritoAerolineaItem> CarritosAerolinea => Set<CarritoAerolineaItem>();
+    public DbSet<CarritoAerolineaPasajero> CarritoAerolineaPasajeros => Set<CarritoAerolineaPasajero>();
+    public DbSet<CarritoHabitacionItem> CarritosHabitaciones => Set<CarritoHabitacionItem>();
+    public DbSet<CarritoAutoItem> CarritosAutos => Set<CarritoAutoItem>();
+    public DbSet<CarritoPaqueteItem> CarritosPaquetes => Set<CarritoPaqueteItem>();
+    public DbSet<CarritoPaqueteTurista> CarritoPaqueteTuristas => Set<CarritoPaqueteTurista>();
+    public DbSet<CarritoMesaItem> CarritosMesas => Set<CarritoMesaItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +30,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
         ConfigureCompra(modelBuilder);
         ConfigureReservaCompra(modelBuilder);
         ConfigureDetalleServicio(modelBuilder);
+        ConfigureCarritoAerolinea(modelBuilder);
+        ConfigureCarritoAerolineaPasajero(modelBuilder);
+        ConfigureCarritoHabitacion(modelBuilder);
+        ConfigureCarritoAuto(modelBuilder);
+        ConfigureCarritoPaquete(modelBuilder);
+        ConfigureCarritoPaqueteTurista(modelBuilder);
+        ConfigureCarritoMesa(modelBuilder);
 
         SeedServicios(modelBuilder);
         SeedDetallesServicio(modelBuilder);
@@ -127,12 +143,192 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
         });
     }
 
+    private static void ConfigureCarritoAerolinea(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoAerolineaItem>(builder =>
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.IdVueloProveedor).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Origen).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.Destino).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.TipoCabina).IsRequired().HasMaxLength(80);
+            builder.Property(c => c.NombreAerolinea).IsRequired().HasMaxLength(150);
+            builder.Property(c => c.PrecioNormal).HasPrecision(18, 2);
+            builder.Property(c => c.PrecioActual).HasPrecision(18, 2);
+            builder.Property(c => c.DescuentoPorcentaje).HasPrecision(6, 2);
+            builder.Property(c => c.HoldId).HasMaxLength(120);
+            builder.Property(c => c.FechaCreacion).HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(c => c.Cliente)
+                .WithMany(cl => cl.CarritoAerolineaItems)
+                .HasForeignKey(c => c.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Servicio)
+                .WithMany(s => s.CarritoAerolineaItems)
+                .HasForeignKey(c => c.ServicioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
+    private static void ConfigureCarritoAerolineaPasajero(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoAerolineaPasajero>(builder =>
+        {
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Nombre).IsRequired().HasMaxLength(150);
+            builder.Property(p => p.Apellido).IsRequired().HasMaxLength(150);
+            builder.Property(p => p.TipoIdentificacion).IsRequired().HasMaxLength(60);
+            builder.Property(p => p.Identificacion).IsRequired().HasMaxLength(120);
+            builder.Property(p => p.FechaNacimiento).HasColumnType("date");
+
+            builder.HasOne(p => p.Carrito)
+                .WithMany(c => c.Pasajeros)
+                .HasForeignKey(p => p.CarritoAerolineaItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+
+    private static void ConfigureCarritoHabitacion(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoHabitacionItem>(builder =>
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.IdHabitacionProveedor).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.NombreHabitacion).IsRequired().HasMaxLength(200);
+            builder.Property(c => c.TipoHabitacion).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Hotel).IsRequired().HasMaxLength(200);
+            builder.Property(c => c.Ciudad).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Pais).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Amenidades).HasMaxLength(1024);
+            builder.Property(c => c.Imagenes).HasMaxLength(2048);
+            builder.Property(c => c.PrecioNormal).HasPrecision(18, 2);
+            builder.Property(c => c.PrecioActual).HasPrecision(18, 2);
+            builder.Property(c => c.PrecioVigente).HasPrecision(18, 2);
+            builder.Property(c => c.HoldId).HasMaxLength(120);
+            builder.Property(c => c.FechaCreacion).HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(c => c.Cliente)
+                .WithMany(cl => cl.CarritoHabitacionItems)
+                .HasForeignKey(c => c.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Servicio)
+                .WithMany(s => s.CarritoHabitacionItems)
+                .HasForeignKey(c => c.ServicioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
+    private static void ConfigureCarritoAuto(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoAutoItem>(builder =>
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.IdAutoProveedor).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Tipo).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.Categoria).HasMaxLength(80);
+            builder.Property(c => c.Transmision).HasMaxLength(80);
+            builder.Property(c => c.Ciudad).HasMaxLength(120);
+            builder.Property(c => c.Pais).HasMaxLength(120);
+            builder.Property(c => c.UriImagen).HasMaxLength(512);
+            builder.Property(c => c.PrecioNormalPorDia).HasPrecision(18, 2);
+            builder.Property(c => c.PrecioActualPorDia).HasPrecision(18, 2);
+            builder.Property(c => c.DescuentoPorcentaje).HasPrecision(6, 2);
+            builder.Property(c => c.HoldId).HasMaxLength(120);
+            builder.Property(c => c.FechaCreacion).HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(c => c.Cliente)
+                .WithMany(cl => cl.CarritoAutoItems)
+                .HasForeignKey(c => c.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Servicio)
+                .WithMany(s => s.CarritoAutoItems)
+                .HasForeignKey(c => c.ServicioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
+    private static void ConfigureCarritoPaquete(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoPaqueteItem>(builder =>
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.IdPaqueteProveedor).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Nombre).IsRequired().HasMaxLength(200);
+            builder.Property(c => c.Ciudad).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.Pais).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.TipoActividad).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.ImagenUrl).HasMaxLength(512);
+            builder.Property(c => c.PrecioNormal).HasPrecision(18, 2);
+            builder.Property(c => c.PrecioActual).HasPrecision(18, 2);
+            builder.Property(c => c.BookingUserId).IsRequired().HasMaxLength(120);
+            builder.Property(c => c.HoldId).HasMaxLength(120);
+            builder.Property(c => c.FechaCreacion).HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(c => c.Cliente)
+                .WithMany(cl => cl.CarritoPaqueteItems)
+                .HasForeignKey(c => c.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Servicio)
+                .WithMany(s => s.CarritoPaqueteItems)
+                .HasForeignKey(c => c.ServicioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
+    private static void ConfigureCarritoPaqueteTurista(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoPaqueteTurista>(builder =>
+        {
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Nombre).IsRequired().HasMaxLength(150);
+            builder.Property(t => t.Apellido).IsRequired().HasMaxLength(150);
+            builder.Property(t => t.TipoIdentificacion).IsRequired().HasMaxLength(60);
+            builder.Property(t => t.Identificacion).IsRequired().HasMaxLength(120);
+            builder.Property(t => t.FechaNacimiento).HasColumnType("date");
+
+            builder.HasOne(t => t.Carrito)
+                .WithMany(c => c.Turistas)
+                .HasForeignKey(t => t.CarritoPaqueteItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+
+    private static void ConfigureCarritoMesa(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CarritoMesaItem>(builder =>
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.TipoMesa).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.Precio).HasPrecision(18, 2);
+            builder.Property(c => c.ImagenUrl).HasMaxLength(512);
+            builder.Property(c => c.EstadoMesa).IsRequired().HasMaxLength(80);
+            builder.Property(c => c.HoldId).HasMaxLength(120);
+            builder.Property(c => c.FechaCreacion).HasDefaultValueSql("GETUTCDATE()");
+
+            builder.HasOne(c => c.Cliente)
+                .WithMany(cl => cl.CarritoMesaItems)
+                .HasForeignKey(c => c.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Servicio)
+                .WithMany(s => s.CarritoMesaItems)
+                .HasForeignKey(c => c.ServicioId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
     private static void SeedServicios(ModelBuilder modelBuilder)
     {
         var servicios = new[]
         {
-            // Aerolínea
-            // Isaac Yánez
+
+            // AerolÃ­nea
+
+            // Isaac YÃ¡nez
             new Servicio
             {
                 Id = 1,
@@ -141,6 +337,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 NumeroCuenta = "265",
                 Activo = true
             },
+
+
 
             // Henry Cruz
             new Servicio
@@ -152,7 +350,9 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
-            // Marlon Tomalá
+
+
+            // Marlon TomalÃ¡
             new Servicio
             {
                 Id = 3,
@@ -162,7 +362,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
-            // Justin Baño
+
+
+            // Justin BaÃ±o
+
             new Servicio
             {
                 Id = 4,
@@ -172,8 +375,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Michael Barriga
+
             // Enlaces incorrectos REST
+
             new Servicio
             {
                 Id = 5,
@@ -183,7 +390,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Habitaciones
+
             // Pierre Montenegro
             new Servicio
             {
@@ -193,6 +403,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 NumeroCuenta = "285",
                 Activo = true
             },
+
+
 
             // Daniel Carranza
             new Servicio
@@ -204,6 +416,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Carlos Constante
             new Servicio
             {
@@ -213,6 +427,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 NumeroCuenta = "261",
                 Activo = true
             },
+
+
 
             // David Ocampo
             new Servicio
@@ -224,7 +440,9 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
-            // Alejandro Gómez
+
+
+            // Alejandro GÃ³mez
             new Servicio
             {
                 Id = 105,
@@ -233,6 +451,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 NumeroCuenta = "297",
                 Activo = true
             },
+
+
 
             // Jossue Gallardo
             new Servicio
@@ -244,7 +464,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Autos
+
             // Shirley Pilataxi
             new Servicio
             {
@@ -255,7 +478,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
-            // Marco Benítez
+
+
+            // Marco BenÃ­tez
+
             new Servicio
             {
                 Id = 202,
@@ -265,7 +491,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Joel Tupiza
+
             new Servicio
             {
                 Id = 203,
@@ -275,7 +504,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
-            // Mateo Sánchez
+
+
+            // Mateo SÃ¡nchez
+
             new Servicio
             {
                 Id = 204,
@@ -285,7 +517,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Gabriel Naranjo
+
             new Servicio
             {
                 Id = 205,
@@ -295,7 +530,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Alex Vivanco
+
             new Servicio
             {
                 Id = 206,
@@ -305,7 +543,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Paquetes
+
             // Christian Coba
             new Servicio
             {
@@ -315,6 +556,8 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 NumeroCuenta = "198",
                 Activo = true
             },
+
+
 
             // Jordi Nogales
             new Servicio
@@ -326,17 +569,22 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Daniel Valenzuela
             new Servicio
             {
                 Id = 303,
-                Nombre = "Paquetes Turísticos Web",
+                Nombre = "Paquetes TurÃ­sticos Web",
                 TipoServicio = TipoServicio.PaquetesTuristicos,
                 NumeroCuenta = "220",
                 Activo = true
             },
 
+
+
             // Restaurantes
+
             // Allisson Barros
             new Servicio
             {
@@ -347,38 +595,51 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Nick Romero
+
             new Servicio
             {
                 Id = 402,
-                Nombre = "Dragón Rojo",
+                Nombre = "DragÃ³n Rojo",
                 TipoServicio = TipoServicio.Restaurante,
                 NumeroCuenta = "216",
                 Activo = true
             },
 
+
+
             // Arturo Albuja
-            // No hay número de cuenta
+
+            // No hay nÃºmero de cuenta
+
             new Servicio
             {
                 Id = 403,
-                Nombre = "Café San Juan",
+                Nombre = "CafÃ© San Juan",
                 TipoServicio = TipoServicio.Restaurante,
                 NumeroCuenta = "1",
                 Activo = false
             },
 
+
+
             // Melany Acosta
+
             new Servicio
             {
                 Id = 404,
-                Nombre = "Sánctum",
+                Nombre = "SÃ¡nctum",
                 TipoServicio = TipoServicio.Restaurante,
                 NumeroCuenta = "215",
                 Activo = true
             },
 
+
+
             // Emilia Lara
+
             new Servicio
             {
                 Id = 405,
@@ -388,7 +649,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Jordy Morales
+
             new Servicio
             {
                 Id = 406,
@@ -398,7 +662,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 Activo = true
             },
 
+
+
             // Esteban Singo
+
             new Servicio
             {
                 Id = 407,
@@ -416,9 +683,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
     {
         var detalles = new[]
         {
-            // Aerolínea
 
-            // Isaac Yánez
+            // AerolÃ­nea
+
+
+
+            // Isaac YÃ¡nez
+
             new DetalleServicio
             {
                 Id = 1,
@@ -445,10 +716,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearPrerreservaEndpoint = "/hold",
                 CrearReservaEndpoint = "/book",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/reserva" // Estas (API de Aerolínea) se obtienen añadiendo ?idReserva={el número consultado} al final el endpoint, como http://skyandes.runasp.net/api/integracion/aerolinea/reserva?idReserva=1
+                ObtenerReservaEndpoint = "/reserva" // Estas (API de AerolÃ­nea) se obtienen aÃ±adiendo ?idReserva={el nÃºmero consultado} al final el endpoint, como http://skyandes.runasp.net/api/integracion/aerolinea/reserva?idReserva=1
             },
 
+
+
             // Henry Cruz
+
             new DetalleServicio
             {
                 Id = 2,
@@ -478,7 +752,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
-            // Marlon Tomalá
+
+
+            // Marlon TomalÃ¡
+
             new DetalleServicio
             {
                 Id = 3,
@@ -508,7 +785,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
-            // Justin Baño
+
+
+            // Justin BaÃ±o
+
             new DetalleServicio
             {
                 Id = 4,
@@ -538,7 +818,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Michael Barriga
+
             new DetalleServicio
             {
                 Id = 5,
@@ -553,6 +836,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 GenerarFacturaEndpoint = "",
                 ObtenerReservaEndpoint = ""
             },
+
             // Enlaces incorrectos
             new DetalleServicio
             {
@@ -569,8 +853,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Habitaciones
+
             // Pierre Montenegro
+
             new DetalleServicio
             {
                 Id = 101,
@@ -597,10 +885,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearPrerreservaEndpoint = "/hold",
                 CrearReservaEndpoint = "/book",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/reserva" // Estas (API de Habitaciones de hotel) se obtienen añadiendo ?idReserva={el número consultado} al final el endpoint, como http://hotelcampestrerest.runasp.net/api/v1/hoteles/reserva?idReserva=1
+                ObtenerReservaEndpoint = "/reserva" // Estas (API de Habitaciones de hotel) se obtienen aÃ±adiendo ?idReserva={el nÃºmero consultado} al final el endpoint, como http://hotelcampestrerest.runasp.net/api/v1/hoteles/reserva?idReserva=1
             },
 
+
+
             // Daniel Carranza
+
             new DetalleServicio
             {
                 Id = 102,
@@ -630,7 +921,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Carlos Constante
+
             new DetalleServicio
             {
                 Id = 103,
@@ -660,7 +954,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // David Ocampo
+
             new DetalleServicio
             {
                 Id = 104,
@@ -690,7 +987,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
-            // Alejandro Gómez
+
+
+            // Alejandro GÃ³mez
+
             new DetalleServicio
             {
                 Id = 105,
@@ -720,7 +1020,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Jossue Gallardo
+
             new DetalleServicio
             {
                 Id = 106,
@@ -750,8 +1053,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Autos
+
             // Shirley Pilataxi
+
             new DetalleServicio
             {
                 Id = 201,
@@ -778,10 +1085,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearPrerreservaEndpoint = "/hold",
                 CrearReservaEndpoint = "/book",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/reserva" // Estas (API de Renta de Autos) se obtienen añadiendo el número consultado al final el endpoint, como http://cuencautosinte.runasp.net/api/v1/integracion/autos/reservas/1
+                ObtenerReservaEndpoint = "/reserva" // Estas (API de Renta de Autos) se obtienen aÃ±adiendo el nÃºmero consultado al final el endpoint, como http://cuencautosinte.runasp.net/api/v1/integracion/autos/reservas/1
             },
 
-            // Marco Benítez
+
+
+            // Marco BenÃ­tez
+
             new DetalleServicio
             {
                 Id = 202,
@@ -811,7 +1121,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Joel Tupiza
+
             new DetalleServicio
             {
                 Id = 203,
@@ -841,7 +1154,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
-            // Mateo Sánchez
+
+
+            // Mateo SÃ¡nchez
+
             new DetalleServicio
             {
                 Id = 204,
@@ -871,7 +1187,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reserva"
             },
 
+
+
             // Gabriel Naranjo
+
             new DetalleServicio
             {
                 Id = 205,
@@ -901,7 +1220,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/v2/prereserva/auto"
             },
 
+
+
             // Alex Vivanco
+
             new DetalleServicio
             {
                 Id = 206,
@@ -931,8 +1253,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/prereserva/auto"
             },
 
+
+
             // Paquetes
+
             // Christian Coba
+
             new DetalleServicio
             {
                 Id = 301,
@@ -959,10 +1285,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearPrerreservaEndpoint = "/pre-reserva",
                 CrearReservaEndpoint = "/reserva",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/{id}/reserva" // Estas (API de Paquetes turísticos) se obtienen reemplazando {id} por el ID de reserva en el enlace, como https://worldagencybk.runasp.net/api/v2/paquetes/1/reserva
+                ObtenerReservaEndpoint = "/{id}/reserva" // Estas (API de Paquetes turÃ­sticos) se obtienen reemplazando {id} por el ID de reserva en el enlace, como https://worldagencybk.runasp.net/api/v2/paquetes/1/reserva
             },
 
+
+
             // Jordi Nogales
+
             new DetalleServicio
             {
                 Id = 302,
@@ -977,6 +1306,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 GenerarFacturaEndpoint = "",
                 ObtenerReservaEndpoint = ""
             },
+
             // Enlaces incorrectos
             new DetalleServicio
             {
@@ -993,7 +1323,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/{id}/reserva"
             },
 
+
+
             // Daniel Valenzuela
+
             new DetalleServicio
             {
                 Id = 303,
@@ -1008,6 +1341,7 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 GenerarFacturaEndpoint = "",
                 ObtenerReservaEndpoint = ""
             },
+
             // Enlaces incorrectos
             new DetalleServicio
             {
@@ -1024,8 +1358,12 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/{id}/reserva"
             },
 
+
+
             // Mesas
+
             // Allison Barros
+
             new DetalleServicio
             {
                 Id = 401,
@@ -1052,10 +1390,13 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 CrearPrerreservaEndpoint = "/hold",
                 CrearReservaEndpoint = "/book",
                 GenerarFacturaEndpoint = "/invoices",
-                ObtenerReservaEndpoint = "/reservas" // Estas (API de Mesas) se obtienen añadiendo el número consultado al final el endpoint, como http://cangrejitosfelices.runasp.net/api/v1/integracion/restaurantes/reservas/9
+                ObtenerReservaEndpoint = "/reservas" // Estas (API de Mesas) se obtienen aÃ±adiendo el nÃºmero consultado al final el endpoint, como http://cangrejitosfelices.runasp.net/api/v1/integracion/restaurantes/reservas/9
             },
 
+
+
             // Nick Romero
+
             new DetalleServicio
             {
                 Id = 402,
@@ -1085,7 +1426,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reservas"
             },
 
+
+
             // Arturo Albuja
+
             new DetalleServicio
             {
                 Id = 403,
@@ -1115,7 +1459,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reservas"
             },
 
+
+
             // Melany Acosta
+
             new DetalleServicio
             {
                 Id = 404,
@@ -1145,7 +1492,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reservas"
             },
 
+
+
             // Emilia Lara
+
             new DetalleServicio
             {
                 Id = 405,
@@ -1175,7 +1525,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reservas"
             },
 
+
+
             // Jordy Morales
+
             new DetalleServicio
             {
                 Id = 406,
@@ -1205,7 +1558,10 @@ public class TravelioDbContext(DbContextOptions<TravelioDbContext> options) : Db
                 ObtenerReservaEndpoint = "/reservas"
             },
 
+
+
             // Esteban Singo
+
             new DetalleServicio
             {
                 Id = 407,

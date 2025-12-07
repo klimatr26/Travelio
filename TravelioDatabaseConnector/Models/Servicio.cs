@@ -1,3 +1,4 @@
+using TravelioDatabaseConnector.Models.Carrito;
 using TravelioDatabaseConnector.Enums;
 
 namespace TravelioDatabaseConnector.Models;
@@ -12,4 +13,9 @@ public class Servicio
 
     public ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
     public DetalleServicio? DetalleServicio { get; set; }
+    public ICollection<CarritoAerolineaItem> CarritoAerolineaItems { get; set; } = new List<CarritoAerolineaItem>();
+    public ICollection<CarritoHabitacionItem> CarritoHabitacionItems { get; set; } = new List<CarritoHabitacionItem>();
+    public ICollection<CarritoAutoItem> CarritoAutoItems { get; set; } = new List<CarritoAutoItem>();
+    public ICollection<CarritoPaqueteItem> CarritoPaqueteItems { get; set; } = new List<CarritoPaqueteItem>();
+    public ICollection<CarritoMesaItem> CarritoMesaItems { get; set; } = new List<CarritoMesaItem>();
 }

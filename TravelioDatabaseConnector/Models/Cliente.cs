@@ -1,3 +1,5 @@
+using TravelioDatabaseConnector.Models.Carrito;
+
 namespace TravelioDatabaseConnector.Models;
 
 public class Cliente
@@ -15,4 +17,9 @@ public class Cliente
     public string PasswordSalt { get; set; } = default!;
 
     public ICollection<Compra> Compras { get; set; } = new List<Compra>();
+    public ICollection<CarritoAerolineaItem> CarritoAerolineaItems { get; set; } = new List<CarritoAerolineaItem>();
+    public ICollection<CarritoHabitacionItem> CarritoHabitacionItems { get; set; } = new List<CarritoHabitacionItem>();
+    public ICollection<CarritoAutoItem> CarritoAutoItems { get; set; } = new List<CarritoAutoItem>();
+    public ICollection<CarritoPaqueteItem> CarritoPaqueteItems { get; set; } = new List<CarritoPaqueteItem>();
+    public ICollection<CarritoMesaItem> CarritoMesaItems { get; set; } = new List<CarritoMesaItem>();
 }
